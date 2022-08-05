@@ -1,4 +1,43 @@
-﻿
+﻿/*@media (min-width: 320px) {
+    .item-card {
+        width: 11rem;
+    }
+
+    .item-card-img {
+        height: 50px;
+    }
+}
+
+@media (min-width: 375px) {
+    .item-card {
+        width: 16rem;
+    }
+
+    .item-card-img {
+        height: 100px;
+    }
+}
+
+@media (min-width: 425px) {
+    .item-card {
+        width: 18rem;
+    }
+
+    .item-card-img {
+        height: 150px;
+    }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1440px) {
+}
+*/
+
 .items {
     width: 100%;
     overflow-x: hidden;
@@ -14,11 +53,6 @@
         cursor: -webkit-grabbing;
         transform: scale(1);
     }
-
-.item {
-    display: inline-block;
-    margin: 2em 1em;
-}
 
 .chevron {
     font-size: 50px;
@@ -39,6 +73,7 @@
 }
 
 .card {
+    width: 18rem;
     border-radius: 15px 15px 0 0;
 }
 
@@ -48,9 +83,9 @@
         width: 100%;
     }
 
-.btn-style {
+.btn-card {
     display: inline;
-    height: 30px!important;
+    height: 30px !important;
     background-color: transparent;
     border: unset;
     font-weight: bold;
@@ -59,17 +94,68 @@
     transition: all linear 0.2s;
 }
 
-    .btn-style:active {
+    .btn-card:active {
         color: black;
         transform: scale(1.2);
     }
 
-    .btn-style:hover {
+    .btn-card:hover {
         color: black;
         transform: scale(1.2);
     }
 
-.carrer-block {
-    /*border-bottom: solid 1px grey;*/
-/*    border-radius: 15px;
-*/}
+
+
+
+.item-card {
+    width: 18rem;
+    display: inline-block;
+    padding: 14px;
+    background-color: white;
+    margin: 2em 1em;
+    padding: 0px;
+    transition: all linear 0.2s;
+}
+
+    .item-card:hover {
+        box-shadow: 5px 5px 15px;
+    }
+
+.item-card-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 14px;
+}
+
+.item-card-btn {
+    border-radius: 0.25rem;
+    width: 100%;
+    border: unset;
+    background-color: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+}
+
+    .item-card-btn:hover {
+        background-color: #0b5ed7;
+    }
+
+.item-card, .item-card-img {
+    border-radius: 5px 5px 0 0;
+}
+
+
+/*.items1 {
+    cursor: pointer;
+    transition: all 0.2s;
+    transform: scale(0.98);
+}
+
+    .items1.active {
+        background: rgba(0, 172, 193, 0.1);
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+        transform: scale(1);
+    }
+*/

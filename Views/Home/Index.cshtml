@@ -8,7 +8,7 @@
 </h2>
 <h4 class="text-center">Prochaines sessions</h4>
 @*home slide view*@
-<div class="d-flex justify-content-center align-items-center mx-auto" style="max-width: 1070px;">
+<div class="d-flex justify-content-center align-items-center mx-auto slide-block" style="max-width: 1070px;">
     <span class="material-icons chevron left">chevron_left</span>
     <div class="items">
         @{
@@ -21,56 +21,51 @@
         };
             foreach (var item in tab)
             {
-                <div class="item">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">
-                                <img class="d-block" src=@item alt="First slide">
-                            </p>
-                            <a href="#" class="btn btn-primary w-100">S'inscrire</a>
-                        </div>
-                    </div>
-                </div>
+                <figure class="item-card">
+                    <img src=@item class="item-card-img" />
+                    <figcaption style="padding: 10px;">
+                        <div class="h6">Session développeur</div>
+                        <div style="font-size: 14px;"> 25/02/2022 au 15/07/2022</div>
+                    </figcaption>
+                </figure>
             }
         }
     </div>
     <span class="material-icons chevron right">chevron_right</span>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @*carrer list*@
-<div class="container-fluid mt-5">
-    <div class="row">
-        <div class="col">
-            <h4 class="">Toutes les sessions</h4>
-            <hr />
+<h4 class="">Toutes les sessions</h4>
+<hr />
+@*carrer-block*@
+<div class="row d-flex justify-content-center my-5 g-0 carrer-block">
+    @foreach (var item in tab)
+    {
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3  d-flex justify-content-center">
+            <figure class="item-card">
+                <img src=@item class="item-card-img" />
+                <figcaption style="padding: 10px;">
+                    <div class="h6">Session développeur</div>
+                    <div style="font-size: 14px;"> 25/02/2022 au 15/07/2022</div>
+                </figcaption>
+            </figure>
+
         </div>
-
-    </div>
-
-    @*carrer-block*@
-    <div class="row my-5 g-0 carrer-block">
-        @foreach (var item in tab)
-        {
-            <div class="col">
-                <div class="container-fluid">
-                    @*carrer*@
-                    <div class="row">
-                        <div class="col ">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        <img class="d-block" src=@item alt="First slide" />
-                                    </p>
-                                    <a href="#" class="btn btn-primary w-100">S'inscrire</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+    }
+</div>
 </div>
 
 
@@ -78,3 +73,6 @@
 @section Scripts {
     <script defer src="~/js/index.js"></script>
 }
+
+
+
