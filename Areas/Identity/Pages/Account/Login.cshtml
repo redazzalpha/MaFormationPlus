@@ -1,0 +1,59 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+
+            <!-- Modal -->
+            <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-center" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="d-flex justify-content-center modal-header-block" style="background-color: #00ACC1">
+                            <a asp-controller="Home" asp-action="Index" class="material-icons icon-back text-white" style="position:absolute; left: 10px; top: 5px">backspace</a>
+                            <div class="d-flex flex-column">
+                                <h5 class="modal-title text-center text-white" id="login-modal-title">MaFormationPlus</h5>
+                                <h6 class="modal-title text-center text-white" id="login-modal-title">Connection</h6>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <form id="account" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-floating pb-2">
+                                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                    <label asp-for="Input.Email" class="form-label"></label>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating pb-2">
+                                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                                    <label asp-for="Input.Password" class="form-label"></label>
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <div>
+                                    <div class="checkbox">
+                                        <label asp-for="Input.RememberMe" class="form-label">
+                                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Se connecter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,75 @@
+﻿
+.items {
+    width: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+    transform: scale(0.98);
+}
+
+    .items.active {
+        background: rgba(0, 172, 193, 0.1);
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+        transform: scale(1);
+    }
+
+.item {
+    display: inline-block;
+    margin: 2em 1em;
+}
+
+.chevron {
+    font-size: 50px;
+    color: grey;
+    opacity: 0.5;
+    transform: scale(0.98);
+    transition: all ease-in 0.1s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chevron-hover {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+.card {
+    border-radius: 15px 15px 0 0;
+}
+
+    .card img {
+        height: 150px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+.btn-style {
+    display: inline;
+    height: 30px!important;
+    background-color: transparent;
+    border: unset;
+    font-weight: bold;
+    color: grey;
+    transform: scale(0.98);
+    transition: all linear 0.2s;
+}
+
+    .btn-style:active {
+        color: black;
+        transform: scale(1.2);
+    }
+
+    .btn-style:hover {
+        color: black;
+        transform: scale(1.2);
+    }
+
+.carrer-block {
+    /*border-bottom: solid 1px grey;*/
+/*    border-radius: 15px;
+*/}
