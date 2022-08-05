@@ -21,31 +21,21 @@
         };
             foreach (var item in tab)
             {
-                <figure class="item-card">
-                    <img src=@item class="item-card-img" />
-                    <figcaption style="padding: 10px;">
-                        <div class="h6">Session développeur</div>
-                        <div style="font-size: 14px;"> 25/02/2022 au 15/07/2022</div>
-                    </figcaption>
-                </figure>
+                    <figure class="item-card">
+                        <img src=@item class="item-card-img" />
+                        <figcaption style="padding: 10px;">
+                            <div class="h6">Session développeur</div>
+                            <div class="d-flex align-items-center">
+                                <div class="" style=" font-size: 14px; margin-right: 10px">Du 25/02/2022 <br /> au 15/07/2022</div>
+                                <button type="button" class="flex-grow-1 item-card-btn ">S'inscrire</button>
+                            </div>
+                        </figcaption>
+                    </figure>
             }
         }
     </div>
     <span class="material-icons chevron right">chevron_right</span>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @*carrer list*@
 <h4 class="">Toutes les sessions</h4>
@@ -55,20 +45,19 @@
     @foreach (var item in tab)
     {
         <div class="col-12 col-md-6 col-lg-4 col-xl-3  d-flex justify-content-center">
-            <figure class="item-card">
+            <figure class="item-card" style="cursor: pointer">
                 <img src=@item class="item-card-img" />
                 <figcaption style="padding: 10px;">
-                    <div class="h6">Session développeur</div>
-                    <div style="font-size: 14px;"> 25/02/2022 au 15/07/2022</div>
+                    <div class="h6 font-weight-bold">Session développeur</div>
+                    <div class="d-flex align-items-center">
+                        <div class="" style="font-size: 14px; margin-right: 10px"> Du 25/02/2022 au 15/07/2022</div>
+                        <button type="button" class="flex-grow-1 item-card-btn">S'inscrire</button>
+                    </div>
                 </figcaption>
             </figure>
-
         </div>
     }
 </div>
-</div>
-
-
 
 @section Scripts {
     <script defer src="~/js/index.js"></script>

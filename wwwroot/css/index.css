@@ -118,7 +118,7 @@
 }
 
     .item-card:hover {
-        box-shadow: 5px 5px 15px;
+        box-shadow: 7px 7px 15px;
     }
 
 .item-card-img {
@@ -131,14 +131,19 @@
 .item-card-btn {
     border-radius: 0.25rem;
     width: 100%;
-    border: unset;
+    border: solid grey 1px;
     background-color: #0d6efd;
+    background-color: transparent;
     color: white;
     padding: 6px 12px;
+    color: black;
+    transition: all linear 0.3s;
 }
 
     .item-card-btn:hover {
-        background-color: #0b5ed7;
+        background-color: #0d6efd;
+        color: white;
+        border: unset;
     }
 
 .item-card, .item-card-img {
