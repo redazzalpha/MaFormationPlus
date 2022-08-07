@@ -12,7 +12,11 @@ namespace MaFormaPlusCoreMVC.Models
         public string Resume { get; set; } = string.Empty;
         public string Info { get; set; } = string.Empty;
         public string Logo { get; set; } = string.Empty;
-        public Unite? Unite{ get; set; }
+
+        public int? ParcoursId { get; set; }
         public Parcours? Parcours { get; set; }
+
+        public Unite? Unite{ get; set; }
     }
 }
+            

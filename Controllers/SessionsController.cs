@@ -24,9 +24,9 @@ namespace MaFormaPlusCoreMVC.Controllers
         // actions
         public async Task<IActionResult> Index()
         {
-              return _context.Sessions != null ? 
-                          View(await _context.Sessions.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Sessions'  is null.");
+            return _context.Sessions != null ?
+                        View(await _context.Sessions.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Sessions'  is null.");
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -48,14 +48,17 @@ namespace MaFormaPlusCoreMVC.Controllers
 
         public IActionResult Create()
         {
+            List<Parcours> parcours = (from p in _context.Parcours select p).ToList();
+            ViewBag.parcours = parcours;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Libelle,Date")] Session session, string parcours)
+        public async Task<IActionResult> Create([Bind("Id,Libelle,Debut, Fin")] Session session, int selectedParcours)
         {
             if (ModelState.IsValid)
             {
+                InsertParcours(session, selectedParcours);
                 _context.Add(session);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -138,24 +141,21 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 _context.Sessions.Remove(session);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-
-        public iac Back()
-        {
-            if (Request.Headers["Referer"] != "")
-            {
-                ViewData["Reffer"] = Request.Headers["Referer"].ToString();
-            }
         }
 
         // methods
         private bool SessionExists(int id)
         {
-          return (_context.Sessions?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Sessions?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        private void InsertParcours(Session session, int? selectedParcours)
+        {
+            Parcours? parcours = (from p in _context.Parcours where p.Id == selectedParcours select p).FirstOrDefault();
+            if (parcours != null)
+                session.Parcours = parcours;
         }
     }
 }

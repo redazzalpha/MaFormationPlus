@@ -117,7 +117,11 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.Property<int?>("ConseillerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Date")
+                    b.Property<string>("Debut")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fin")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -125,7 +129,7 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParcoursId")
+                    b.Property<int>("ParcoursId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -426,7 +430,9 @@ namespace MaFormaPlusCoreMVC.Migrations
 
                     b.HasOne("MaFormaPlusCoreMVC.Models.Parcours", "Parcours")
                         .WithMany("Sessions")
-                        .HasForeignKey("ParcoursId");
+                        .HasForeignKey("ParcoursId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Conseiller");
 

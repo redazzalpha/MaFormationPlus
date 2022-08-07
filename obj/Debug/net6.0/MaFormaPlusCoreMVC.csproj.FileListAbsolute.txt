@@ -6,6 +6,7 @@ C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\ww
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\wwwroot\assets\backgrounds\top-bg1.png
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\wwwroot\assets\backgrounds\top-bg2.png
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\wwwroot\assets\backgrounds\main-bg.png
+C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\wwwroot\assets\generics\no-image.png
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\MaFormaPlusCoreMVC.deps.json
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\MaFormaPlusCoreMVC.runtimeconfig.json
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\MaFormaPlusCoreMVC.dll
@@ -272,4 +273,3 @@ C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\obj\Debug\net6.0\re
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\obj\Debug\net6.0\MaFormaPlusCoreMVC.pdb
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\obj\Debug\net6.0\MaFormaPlusCoreMVC.genruntimeconfig.cache
 C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\obj\Debug\net6.0\ref\MaFormaPlusCoreMVC.dll
-C:\Users\Asus\Documents\MVS\MaFormaPlusTp\MaFormaPlusCoreMVC\bin\Debug\net6.0\wwwroot\assets\generics\no-image.png

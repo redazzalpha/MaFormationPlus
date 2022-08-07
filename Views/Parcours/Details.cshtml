@@ -1,34 +1,98 @@
-﻿@model MaFormaPlusCoreMVC.Models.Parcours
+﻿@model MaFormaPlusCoreMVC.Models.ParcoursModule
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <h4>Details parcours</h4>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Resume)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Resume)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src=@Model.Logo width="70" height="70" class="mt-4" style="border-radius: 15px; object-fit: cover;" />
-        </dd>
-    </dl>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex flex-grow-0">
+            <figure class="item-card d-inline-block m-0 my-3" style="cursor: pointer">
+                <img src=@Model.Parcours.Logo class="item-card-img" />
+                <figcaption style="padding: 10px;">
+                    <div class="h6 font-weight-bold">@Model.Parcours.Nom</div>
+                    <div class="d-flex align-items-center">
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="col">
+            <dl class="row " style=" margin-left: 15px;">
+                <dt class="col-sm-2">
+                    Nom
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Parcours.Nom
+                </dd>
+                <dt class="col-sm-2">
+                    Résumé
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Parcours.Resume
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-4">
+                <a asp-action="Edit" asp-route-id="@Model.Parcours.Id" class="btn-style d-inline">Modifier</a>
+                <a asp-controller="Home" asp-action="Index" class="btn-style d-inline">Retour accueil</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<h4>Module(s) associé(s)</h4>
+<hr />
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-style">Modifier</a>
-    <a asp-controller="Home" asp-action="Index" class="btn-style">Retour accueil</a>
+    <div class="container">
+        <div class="row">
+            @foreach (Module module in Model.Modules)
+            {
+                <div class="col d-flex flex-grow-0">
+                    <a asp-controller="Modules" asp-action="Details" asp-route-id=@module.Id style="text-decoration: unset; color:black; ">
+                        <figure class="item-card d-inline-block m-0" style="cursor: pointer">
+                            <img src=@module.Logo class="item-card-img" />
+                            <figcaption style="padding: 10px;">
+                                <div class="h6 font-weight-bold">@module.Nom</div>
+                                <div class="d-flex align-items-center">
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </div>
+                <div class="col">
+                    <dl class="row " style=" margin-left: 15px;">
+                        <dt class="col-sm-2">
+                            Nom
+                        </dt>
+                        <dd class="col-sm-10">
+                            @module.Nom
+                        </dd>
+                        <dt class="col-sm-2">
+                            Résumé
+                        </dt>
+                        <dd class="col-sm-10">
+                            @module.Resume
+                        </dd>
+                        <dt class="col-sm-2">
+                            Info
+                        </dt>
+                        <dd class="col-sm-10">
+                            @module.Info
+                        </dd>
+                    </dl>
+                </div>
+            }
+        </div>
+    </div>
 </div>

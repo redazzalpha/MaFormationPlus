@@ -46,27 +46,32 @@ namespace MaFormaPlusCoreMVC.Controllers
                 return NotFound();
             }
 
-            return View(parcours);
+            List<Module> modules = await (from m in _context.Modules where m.ParcoursId == parcours.Id select m).ToListAsync();
+            return View(new ParcoursModule(parcours, modules));
+
         }
 
         public IActionResult Create()
         {
+            List<Module> modules = (from m in _context.Modules select m).ToList();
+            ViewBag.modules = modules;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, string? module)
+        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, int? selectedModule)
         {
             if (ModelState.IsValid)
             {
                 await InsertImg(file, parcours);
-
+                await InsertModule(parcours, selectedModule);
                 _context.Add(parcours);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(parcours);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -177,6 +182,14 @@ namespace MaFormaPlusCoreMVC.Controllers
             else if (logoStr != null) parcours.Logo = logoStr;
             else parcours.Logo = defaultImg;
         }
-
+        private async Task InsertModule(Parcours parcours, int? selectedModule)
+        {
+            if (selectedModule != null)
+            {
+                Module? module = await (from m in _context.Modules where m.Id == selectedModule select m).FirstOrDefaultAsync();
+                if (module != null)
+                    parcours.Modules.Add(module);
+            }
+        }
     }
 }
