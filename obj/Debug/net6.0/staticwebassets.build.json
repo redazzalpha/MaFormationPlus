@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yDPFvO+rRBKgXxHn/24U9BnkPmKIwxr57Yu3whabnHs=",
+  "Hash": "eq+0/U5CN89pOdjCxpvSAbXeU3cVZAPl6wxoXR40Rus=",
   "Source": "MaFormaPlusCoreMVC",
   "BasePath": "_content/MaFormaPlusCoreMVC",
   "Mode": "Default",
@@ -1088,12 +1088,12 @@
       "OriginalItemSpec": "wwwroot\\assets\\backgrounds\\main-bg.png"
     },
     {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\sessions\\session.png",
+      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\modules\\background_db75ca9f-ae62-4c0e-937c-9c05dabf20d8.jfif",
       "SourceId": "MaFormaPlusCoreMVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
       "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "assets/sessions/session.png",
+      "RelativePath": "assets/modules/background_db75ca9f-ae62-4c0e-937c-9c05dabf20d8.jfif",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1102,58 +1102,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\sessions\\session.png"
-    },
-    {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\sessions\\session1.png",
-      "SourceId": "MaFormaPlusCoreMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
-      "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "assets/sessions/session1.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\sessions\\session1.png"
-    },
-    {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\sessions\\session2.png",
-      "SourceId": "MaFormaPlusCoreMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
-      "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "assets/sessions/session2.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\sessions\\session2.png"
-    },
-    {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\sessions\\session4.png",
-      "SourceId": "MaFormaPlusCoreMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
-      "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "assets/sessions/session4.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\sessions\\session4.png"
+      "OriginalItemSpec": "wwwroot\\assets\\modules\\background_db75ca9f-ae62-4c0e-937c-9c05dabf20d8.jfif"
     },
     {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\tags\\tag.png",
@@ -1207,12 +1156,12 @@
       "OriginalItemSpec": "wwwroot\\assets\\tags\\tag2.png"
     },
     {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\css\\index.css",
+      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\css\\home.css",
       "SourceId": "MaFormaPlusCoreMVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
       "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "css/index.css",
+      "RelativePath": "css/home.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1221,7 +1170,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\index.css"
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\css\\site.css",

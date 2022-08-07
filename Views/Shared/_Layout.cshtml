@@ -72,13 +72,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 align-items-center">
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <div class="dropdown show">
+                                <a class=" dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: unset; color: white;" >
+                                    Menu
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a asp-controller="Sessions" asp-action="Create" class="dropdown-item" >Nouvelle session</a>
+                                    <a asp-controller="Parcours" asp-action="Create" class="dropdown-item" >Nouveau parcours</a>
+                                    <a asp-controller="Modules" asp-action="Create" class="dropdown-item" >Nouveau module</a>
+                                    <a asp-controller="Sessions" asp-action="Index" class="dropdown-item" >Liste des sessions</a>
+                                    <a asp-controller="Parcours" asp-action="Index" class="dropdown-item" >Listes des parcours</a>
+                                    <a asp-controller="Modules" asp-action="Index" class="dropdown-item" >Liste des modules</a>
+                                </div>
+                            </div>
+                        </li>
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

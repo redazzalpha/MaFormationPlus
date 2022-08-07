@@ -12,14 +12,16 @@ namespace MaFormaPlusCoreMVC.Controllers
 {
     public class SessionsController : Controller
     {
+        // fields
         private readonly ApplicationDbContext _context;
 
+        // constructor
         public SessionsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Sessions
+        // actions
         public async Task<IActionResult> Index()
         {
               return _context.Sessions != null ? 
@@ -27,7 +29,6 @@ namespace MaFormaPlusCoreMVC.Controllers
                           Problem("Entity set 'ApplicationDbContext.Sessions'  is null.");
         }
 
-        // GET: Sessions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Sessions == null)
@@ -45,18 +46,13 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(session);
         }
 
-        // GET: Sessions/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Sessions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Libelle,Date")] Session session)
+        public async Task<IActionResult> Create([Bind("Id,Libelle,Date")] Session session, string parcours)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +63,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(session);
         }
 
-        // GET: Sessions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Sessions == null)
@@ -82,10 +77,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
             return View(session);
         }
-
-        // POST: Sessions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Libelle,Date")] Session session)
@@ -118,7 +109,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(session);
         }
 
-        // GET: Sessions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Sessions == null)
@@ -135,8 +125,6 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             return View(session);
         }
-
-        // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -155,6 +143,16 @@ namespace MaFormaPlusCoreMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public iac Back()
+        {
+            if (Request.Headers["Referer"] != "")
+            {
+                ViewData["Reffer"] = Request.Headers["Referer"].ToString();
+            }
+        }
+
+        // methods
         private bool SessionExists(int id)
         {
           return (_context.Sessions?.Any(e => e.Id == id)).GetValueOrDefault();

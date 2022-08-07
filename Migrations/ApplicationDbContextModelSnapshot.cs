@@ -22,6 +22,27 @@ namespace MaFormaPlusCoreMVC.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Conseiller", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Conseillers");
+                });
+
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Module", b =>
                 {
                     b.Property<int>("Id")
@@ -42,6 +63,9 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ParcoursId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Resume")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,6 +74,8 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParcoursId");
 
                     b.HasIndex("UniteId");
 
@@ -65,7 +91,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Logo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -79,22 +104,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Parcours");
-                });
-
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Nom")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Session", b =>
@@ -128,6 +137,39 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.ToTable("Sessions");
                 });
 
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Stagiaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Adresse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateDeNaissance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stagiaires");
+                });
+
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Unite", b =>
                 {
                     b.Property<int>("Id")
@@ -142,38 +184,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Unites");
-                });
-
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Utilisateur", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prenom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Utilisateur");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Utilisateur");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -378,21 +388,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ModuleParcours", b =>
-                {
-                    b.Property<int>("ModulesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParcoursesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ModulesId", "ParcoursesId");
-
-                    b.HasIndex("ParcoursesId");
-
-                    b.ToTable("ModuleParcours");
-                });
-
             modelBuilder.Entity("SessionStagiaire", b =>
                 {
                     b.Property<int>("SessionsId")
@@ -408,37 +403,17 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.ToTable("SessionStagiaire");
                 });
 
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Conseiller", b =>
-                {
-                    b.HasBaseType("MaFormaPlusCoreMVC.Models.Utilisateur");
-
-                    b.HasDiscriminator().HasValue("Conseiller");
-                });
-
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Stagiaire", b =>
-                {
-                    b.HasBaseType("MaFormaPlusCoreMVC.Models.Utilisateur");
-
-                    b.Property<string>("Adresse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateDeNaissance")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Stagiaire");
-                });
-
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Module", b =>
                 {
+                    b.HasOne("MaFormaPlusCoreMVC.Models.Parcours", "Parcours")
+                        .WithMany("Modules")
+                        .HasForeignKey("ParcoursId");
+
                     b.HasOne("MaFormaPlusCoreMVC.Models.Unite", "Unite")
                         .WithMany("Modules")
                         .HasForeignKey("UniteId");
+
+                    b.Navigation("Parcours");
 
                     b.Navigation("Unite");
                 });
@@ -456,15 +431,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.Navigation("Conseiller");
 
                     b.Navigation("Parcours");
-                });
-
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Utilisateur", b =>
-                {
-                    b.HasOne("MaFormaPlusCoreMVC.Models.Role", "Role")
-                        .WithMany("Utilisateurs")
-                        .HasForeignKey("RoleId");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -518,21 +484,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ModuleParcours", b =>
-                {
-                    b.HasOne("MaFormaPlusCoreMVC.Models.Module", null)
-                        .WithMany()
-                        .HasForeignKey("ModulesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MaFormaPlusCoreMVC.Models.Parcours", null)
-                        .WithMany()
-                        .HasForeignKey("ParcoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SessionStagiaire", b =>
                 {
                     b.HasOne("MaFormaPlusCoreMVC.Models.Session", null)
@@ -548,24 +499,21 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Parcours", b =>
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Conseiller", b =>
                 {
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Role", b =>
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Parcours", b =>
                 {
-                    b.Navigation("Utilisateurs");
+                    b.Navigation("Modules");
+
+                    b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Unite", b =>
                 {
                     b.Navigation("Modules");
-                });
-
-            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Conseiller", b =>
-                {
-                    b.Navigation("Sessions");
                 });
 #pragma warning restore 612, 618
         }

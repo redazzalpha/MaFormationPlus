@@ -1,5 +1,6 @@
 ﻿using MaFormaPlusCoreMVC.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MaFormaPlusCoreMVC.Models
 {
@@ -11,9 +12,7 @@ namespace MaFormaPlusCoreMVC.Models
         public string Resume { get; set; } = string.Empty;
         public string Info { get; set; } = string.Empty;
         public string Logo { get; set; } = string.Empty;
-
         public Unite? Unite{ get; set; }
-        public ICollection<Parcours> Parcourses { get; set; } = new List<Parcours>();
-
+        public Parcours? Parcours { get; set; }
     }
 }

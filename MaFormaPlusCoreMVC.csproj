@@ -12,6 +12,8 @@
     <Content Remove="wwwroot\assets\backgrounds\top-bg1.png" />
     <Content Remove="wwwroot\assets\backgrounds\top-bg2.png" />
     <Content Remove="wwwroot\assets\bg.png" />
+    <Content Remove="wwwroot\assets\generics\no-image.png" />
+    <Content Remove="wwwroot\assets\parcours\no-image.png" />
     <Content Remove="wwwroot\assets\session.png" />
     <Content Remove="wwwroot\assets\sessions\session3.png" />
     <Content Remove="wwwroot\assets\tag.png" />
@@ -32,7 +34,7 @@
     <EmbeddedResource Include="wwwroot\assets\backgrounds\main-bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\assets\sessions\session3.png">
+    <EmbeddedResource Include="wwwroot\assets\generics\no-image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -48,6 +50,9 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="wwwroot\assets\modules\" />
+    <Folder Include="wwwroot\assets\parcours\" />
+    <Folder Include="wwwroot\assets\sessions\" />
   </ItemGroup>
 
 </Project>

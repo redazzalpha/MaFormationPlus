@@ -7,27 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
+using System.Configuration;
 
 namespace MaFormaPlusCoreMVC.Controllers
 {
     public class ParcoursController : Controller
     {
+        // fields
         private readonly ApplicationDbContext _context;
+        private IWebHostEnvironment _webHost;
 
-        public ParcoursController(ApplicationDbContext context)
+        // constructors
+        public ParcoursController(ApplicationDbContext context, IWebHostEnvironment webHost)
         {
             _context = context;
+            _webHost = webHost;
         }
 
-        // GET: Parcours
+        // actions
         public async Task<IActionResult> Index()
         {
-              return _context.Parcours != null ? 
-                          View(await _context.Parcours.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Parcours'  is null.");
+            return _context.Parcours != null ?
+                        View(await _context.Parcours.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Parcours'  is null.");
         }
 
-        // GET: Parcours/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Parcours == null)
@@ -45,21 +49,18 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(parcours);
         }
 
-        // GET: Parcours/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Parcours/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Resume,Logo")] Parcours parcours)
+        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, string? module)
         {
             if (ModelState.IsValid)
             {
+                await InsertImg(file, parcours);
+
                 _context.Add(parcours);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -67,7 +68,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(parcours);
         }
 
-        // GET: Parcours/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Parcours == null)
@@ -82,10 +82,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
             return View(parcours);
         }
-
-        // POST: Parcours/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Resume,Logo")] Parcours parcours)
@@ -118,7 +114,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(parcours);
         }
 
-        // GET: Parcours/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Parcours == null)
@@ -135,8 +130,6 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             return View(parcours);
         }
-
-        // POST: Parcours/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -148,16 +141,42 @@ namespace MaFormaPlusCoreMVC.Controllers
             var parcours = await _context.Parcours.FindAsync(id);
             if (parcours != null)
             {
+                if(parcours.Logo != Defines.Defines.DEFAULT_IMG && parcours.Logo != null)
+                {
+                    string file = parcours.Logo.Split(Defines.Defines.SEVER_ADDRESS)[1];
+                    System.IO.File.Delete(@"wwwroot"+ file);
+                } 
                 _context.Parcours.Remove(parcours);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // methods
         private bool ParcoursExists(int id)
         {
-          return (_context.Parcours?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Parcours?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        private async Task InsertImg(IFormFile? file, Parcours parcours, string? logoStr = null)
+        {
+            string defaultImg = Defines.Defines.SEVER_ADDRESS + "/assets/generics/no-image.png";
+            if (file != null)
+            {
+                string rootPath = _webHost.WebRootPath;
+                string folder = "/assets/parcours/";
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" +
+                           Guid.NewGuid() +
+                           Path.GetExtension(file.FileName);
+                string path = rootPath + folder + fileName;
+                using (FileStream fs = new(path, FileMode.Create)) {
+                    await file.CopyToAsync(fs);
+                }
+                parcours.Logo = Defines.Defines.SEVER_ADDRESS + folder + fileName;
+            }
+            else if (logoStr != null) parcours.Logo = logoStr;
+            else parcours.Logo = defaultImg;
+        }
+
     }
 }

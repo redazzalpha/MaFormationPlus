@@ -4,11 +4,9 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h4>Suppression module</h4>
+<h5>Etes vous sure de vouloir supprimer ce module?</h5>
 <div>
-    <h4>Module</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,13 +31,13 @@
             @Html.DisplayNameFor(model => model.Logo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Logo)
+            <img src=@Model.Logo width="70" height="70" class="mt-4" style="border-radius: 15px; object-fit: cover;" />
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Retour accueil</a>
     </form>
 </div>

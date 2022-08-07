@@ -12,14 +12,18 @@ namespace MaFormaPlusCoreMVC.Controllers
 {
     public class ModulesController : Controller
     {
+        // fields
         private readonly ApplicationDbContext _context;
+        private IWebHostEnvironment _webHost;
 
-        public ModulesController(ApplicationDbContext context)
+        // constructors
+        public ModulesController(ApplicationDbContext context, IWebHostEnvironment webHost)
         {
             _context = context;
+            _webHost = webHost;
         }
 
-        // GET: Modules
+        // actions
         public async Task<IActionResult> Index()
         {
               return _context.Modules != null ? 
@@ -27,7 +31,6 @@ namespace MaFormaPlusCoreMVC.Controllers
                           Problem("Entity set 'ApplicationDbContext.Modules'  is null.");
         }
 
-        // GET: Modules/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Modules == null)
@@ -45,21 +48,18 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(@module);
         }
 
-        // GET: Modules/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Modules/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Resume,Info,Logo")] Module @module)
+        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Info,Logo")] Module @module)
         {
             if (ModelState.IsValid)
             {
+                await InsertImg(file, @module);
+
                 _context.Add(@module);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -67,7 +67,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(@module);
         }
 
-        // GET: Modules/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Modules == null)
@@ -82,10 +81,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
             return View(@module);
         }
-
-        // POST: Modules/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Resume,Info,Logo")] Module @module)
@@ -118,7 +113,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(@module);
         }
 
-        // GET: Modules/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Modules == null)
@@ -135,8 +129,6 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             return View(@module);
         }
-
-        // POST: Modules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -148,6 +140,11 @@ namespace MaFormaPlusCoreMVC.Controllers
             var @module = await _context.Modules.FindAsync(id);
             if (@module != null)
             {
+                if (@module.Logo != Defines.Defines.DEFAULT_IMG && @module.Logo != null)
+                {
+                    string file = @module.Logo.Split(Defines.Defines.SEVER_ADDRESS)[1];
+                    System.IO.File.Delete(@"wwwroot" + file);
+                }
                 _context.Modules.Remove(@module);
             }
             
@@ -155,9 +152,31 @@ namespace MaFormaPlusCoreMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // methods
         private bool ModuleExists(int id)
         {
           return (_context.Modules?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        private async Task InsertImg(IFormFile? file, Module module, string? logoStr = null)
+        {
+            string defaultImg = Defines.Defines.SEVER_ADDRESS + "/assets/generics/no-image.png";
+            if (file != null)
+            {
+                string rootPath = _webHost.WebRootPath;
+                string folder = "/assets/modules/";
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" +
+                           Guid.NewGuid() +
+                           Path.GetExtension(file.FileName);
+                string path = rootPath + folder + fileName;
+                using (FileStream fs = new(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fs);
+                }
+                module.Logo = Defines.Defines.SEVER_ADDRESS + folder + fileName;
+            }
+            else if (logoStr != null) module.Logo = logoStr;
+            else module.Logo = defaultImg;
+        }
+
     }
 }

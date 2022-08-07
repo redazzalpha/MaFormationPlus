@@ -54,58 +54,6 @@
         transform: scale(1);
     }
 
-.chevron {
-    font-size: 50px;
-    color: grey;
-    opacity: 0.5;
-    transform: scale(0.98);
-    transition: all ease-in 0.1s;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.chevron-hover {
-    opacity: 1;
-    cursor: pointer;
-    transform: scale(1.5);
-}
-
-.card {
-    width: 18rem;
-    border-radius: 15px 15px 0 0;
-}
-
-    .card img {
-        height: 150px;
-        object-fit: cover;
-        width: 100%;
-    }
-
-.btn-card {
-    display: inline;
-    height: 30px !important;
-    background-color: transparent;
-    border: unset;
-    font-weight: bold;
-    color: grey;
-    transform: scale(0.98);
-    transition: all linear 0.2s;
-}
-
-    .btn-card:active {
-        color: black;
-        transform: scale(1.2);
-    }
-
-    .btn-card:hover {
-        color: black;
-        transform: scale(1.2);
-    }
-
-
-
 
 .item-card {
     width: 18rem;
@@ -128,26 +76,26 @@
     margin-bottom: 14px;
 }
 
-.item-card-btn {
-    border-radius: 0.25rem;
-    width: 100%;
-    border: solid grey 1px;
-    background-color: #0d6efd;
-    background-color: transparent;
-    color: white;
-    padding: 6px 12px;
-    color: black;
-    transition: all linear 0.3s;
-}
-
-    .item-card-btn:hover {
-        background-color: #0d6efd;
-        color: white;
-        border: unset;
-    }
-
 .item-card, .item-card-img {
     border-radius: 5px 5px 0 0;
+}
+
+.chevron {
+    font-size: 50px;
+    color: grey;
+    opacity: 0.5;
+    transform: scale(0.98);
+    transition: all ease-in 0.1s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chevron-hover {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(1.5);
 }
 
 
