@@ -17,16 +17,16 @@
     <div class="row">
 
         <div class="col d-flex flex-grow-0 my-3 mb-5">
-        <a asp-action="Edit" asp-route-id="@Model.Parcours.Id" style="color: black;" >
-            <figure class="item-card d-inline-block m-0">
-                <img src=@Model.Parcours.Logo class="item-card-img" />
-                <figcaption style="padding: 10px;">
-                    <div class="h6 font-weight-bold">@Model.Parcours.Nom</div>
-                    <div class="d-flex align-items-center">
-                    </div>
-                </figcaption>
-            </figure>
-        </a>
+            <a asp-action="Edit" asp-route-id="@Model.Parcours.Id" title="modifier le parcours" style="color: black;">
+                <figure class="item-card m-0">
+                    <img src=@Model.Parcours.Logo class="item-card-img" />
+                    <figcaption style="padding: 10px;">
+                        <div class="h6 font-weight-bold">@Model.Parcours.Nom</div>
+                        <div class="d-flex align-items-center">
+                        </div>
+                    </figcaption>
+                </figure>
+            </a>
         </div>
         <div class="col my-3">
             <dl class="row " style=" margin-left: 15px;">
@@ -51,14 +51,14 @@
 <hr />
 <div>
     <div class="container">
-        <div class="row">
-            @if (Model.Modules.Count() > 0)
+        @if (Model.Modules.Count() > 0)
+        {
+            foreach (Module module in Model.Modules)
             {
-                foreach (Module module in Model.Modules)
-                {
-                    <div class="col d-flex flex-grow-0">
-                        <a asp-controller="Modules" asp-action="Details" asp-route-id=@module.Id style="text-decoration: unset; color:black; ">
-                            <figure class="item-card d-inline-block m-0" style="cursor: pointer">
+                <div class="row d-flex justify-content-center justify-content-sm-start my-5">
+                    <div class="col flex-grow-0">
+                        <a asp-controller="Modules" asp-action="Details" asp-route-id=@module.Id title="voir les détails du module" style="text-decoration: unset; color:black; ">
+                            <figure class="item-card m-0" style="cursor: pointer">
                                 <img src=@module.Logo class="item-card-img" />
                                 <figcaption style="padding: 10px;">
                                     <div class="h6 font-weight-bold">@module.Nom</div>
@@ -68,7 +68,7 @@
                             </figure>
                         </a>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-sm-6">
                         <dl class="row " style=" margin-left: 15px;">
                             <dt class="col-sm-2">
                                 Nom
@@ -93,16 +93,18 @@
                             </dd>
                         </dl>
                     </div>
-                }
+                </div>
             }
-            else
-            {
+        }
+        else
+        {
+            <div class="row">
                 <div class="col">
                     <p class="text-center h6">
                         Ce parcours ne contient aucun module associé
                     </p>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </div>

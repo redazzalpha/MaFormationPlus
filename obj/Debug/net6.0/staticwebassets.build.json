@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fPaXY4vlEt4wdWC3kfi7wULF+hVt+MhdTwBRIE6KIYg=",
+  "Hash": "UKqyjx+ZUop+dpzg84vyMQp6QOUMTd42zLyQ6TcW4no=",
   "Source": "MaFormaPlusCoreMVC",
   "BasePath": "_content/MaFormaPlusCoreMVC",
   "Mode": "Default",
@@ -1681,23 +1681,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\tags\\tag2.png"
-    },
-    {
-      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\css\\home.css",
-      "SourceId": "MaFormaPlusCoreMVC",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
-      "BasePath": "_content/MaFormaPlusCoreMVC",
-      "RelativePath": "css/home.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\css\\site.css",

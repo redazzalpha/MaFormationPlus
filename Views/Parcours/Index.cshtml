@@ -18,8 +18,8 @@
     {
         <div class="row">
             <div class="col d-flex flex-grow-0 my-3 mb-5">
-                <a asp-controller="Parcours" asp-action="Details" asp-route-id=@parcours.Id style="text-decoration: unset; color:black; ">
-                    <figure class="item-card d-inline-block m-0" style="cursor: pointer">
+                <a asp-controller="Parcours" asp-action="Details" asp-route-id=@parcours.Id title="voir les détails du parcours" style="text-decoration: unset; color:black; ">
+                    <figure class="item-card m-0" style="cursor: pointer">
                         <img src=@parcours.Logo class="item-card-img" />
                         <figcaption style="padding: 10px;">
                             <div class="h6 font-weight-bold">@parcours.Nom</div>
@@ -44,9 +44,9 @@
                         @parcours.Resume
                     </dd>
                     <dd class="col-sm-10 d-flex ">
-                        <a asp-action="Edit" asp-route-id="@parcours.Id" class="btn btn-outline-primary m-1">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@parcours.Id" class="btn btn-outline-primary m-1">Modifier</a>
                         <a asp-action="Details" asp-route-id="@parcours.Id" class="btn btn-outline-secondary m-1">Details</a>
-                        <a asp-action="Delete" asp-route-id="@parcours.Id" class="btn btn-outline-danger m-1">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@parcours.Id" class="btn btn-outline-danger m-1">Supprimer</a>
                     </dd>
                 </dl>
             </div>

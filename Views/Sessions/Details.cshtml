@@ -42,7 +42,7 @@
             @if (Model.Parcours != null)
             {
                 <div class="col d-flex flex-grow-0">
-                    <a asp-controller="Parcours" asp-action="Details" asp-route-id=@Model.Parcours.Id style="text-decoration: unset; color:black; ">
+                    <a asp-controller="Parcours" asp-action="Details" asp-route-id=@Model.Parcours.Id title="voir les détails du parcours" style="text-decoration: unset; color:black; ">
                         <figure class="item-card d-inline-block m-0" style="cursor: pointer">
                             <img src=@Model.Parcours.Logo class="item-card-img" />
                             <figcaption style="padding: 10px;">
@@ -67,13 +67,6 @@
                         <dd class="col-sm-10">
                             @Model.Parcours.Resume
                         </dd>
-                        @*                        <dd class="col-sm-10">
-                    <form asp-action="Delier" asp-route-id=@Model.Session.Id>
-                    <input type="number" hidden value=@Model.Parcours.Id name="parcoursId" />
-                    <button type="submit" class="btn btn-danger">Delier le module</button>
-                    </form>
-                    </dd>
-                    *@
                     </dl>
                 </div>
             }

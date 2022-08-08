@@ -20,7 +20,7 @@
                 <figcaption style="padding: 10px;">
                     <div class="h6">Session @sessionParcours.Session.Libelle</div>
                     <div class="d-flex align-items-center">
-                        <div class="" style=" font-size: 14px; margin-right: 10px">Du @sessionParcours.Session.Debut <br /> au @sessionParcours.Session.Fin</div>
+                        <div class="" style=" font-size: 14px; margin-right: 10px">Du @sessionParcours.Session.Debut<br />au @sessionParcours.Session.Fin</div>
                         <a asp-controller="Sessions" asp-action="Edit" asp-route-id=@sessionParcours.Session.Id class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</a>
                     </div>
                 </figcaption>
@@ -38,15 +38,15 @@
     @foreach (SessionParcours sessionParcours in @Model)
     {
         <div class="col-12 col-md-6 col-lg-4 col-xl-3  d-flex justify-content-center">
-            <a asp-controller="Sessions" asp-action="Details" asp-route-id=@sessionParcours.Session.Id style="text-decoration: unset; color:black; ">
-                <figure class="item-card d-inline-block" style="cursor: pointer">
+            <a asp-controller="Sessions" asp-action="Details" asp-route-id=@sessionParcours.Session.Id title="voir les détails de la session" style="text-decoration: unset; color:black; ">
+                <figure class="item-card" style="cursor: pointer">
                     <img src=@sessionParcours.Parcours.Logo class="item-card-img" />
                     <figcaption style="padding: 10px;">
                         <div class="h6 font-weight-bold">Session @sessionParcours.Session.Libelle</div>
-                        <div class="d-flex align-items-center">
-                            <div class="" style="font-size: 14px; margin-right: 10px"> Du  @sessionParcours.Session.Debut au  @sessionParcours.Session.Fin</div>
-                            <a asp-controller="Sessions" asp-action="Edit" asp-route-id=@sessionParcours.Session.Id class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</a>
-                        </div>
+                    <div class="d-flex align-items-center">
+                        <div class="" style=" font-size: 14px; margin-right: 10px">Du @sessionParcours.Session.Debut<br />au @sessionParcours.Session.Fin</div>
+                        <a asp-controller="Sessions" asp-action="Edit" asp-route-id=@sessionParcours.Session.Id class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</a>
+                    </div>
                     </figcaption>
                 </figure>
             </a>

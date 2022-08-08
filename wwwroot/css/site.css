@@ -68,6 +68,7 @@ body {
     margin: 2em 1em;
     padding: 0px;
     transition: all linear 0.2s;
+    white-space: nowrap;
 }
 
     .item-card:hover {
@@ -96,6 +97,39 @@ body {
     border-radius: 5px 5px 0 0;
 }
 
+.items {
+    width: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+    transform: scale(0.98);
+}
+
+    .items.active {
+        background: rgba(0, 172, 193, 0.1);
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+        transform: scale(1);
+    }
+
+.chevron {
+    font-size: 50px;
+    color: grey;
+    opacity: 0.5;
+    transform: scale(0.98);
+    transition: all ease-in 0.1s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chevron-hover {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(1.5);
+}
 
 .select {
     outline: unset;
@@ -113,7 +147,6 @@ body {
         visibility: visible;
     }
 
-
 .select-choice {
     border-radius: 5px;
     border: solid rgba(118, 118, 118, 0.4) 1px;
@@ -127,3 +160,5 @@ body {
         outline: 0;
         box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
     }
+
+

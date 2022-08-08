@@ -104,6 +104,7 @@ namespace MaFormaPlusCoreMVC.Controllers
                 {
                     DeleteImg(parcours);
                     await InsertImg(file, parcours, parcours.Logo);
+                    await InsertModule(parcours, selectedModule);
                     _context.Update(parcours);
                     await _context.SaveChangesAsync();
                 }
@@ -161,10 +162,11 @@ namespace MaFormaPlusCoreMVC.Controllers
         public async Task<IActionResult> Delier(int id)
         {
             Module module = await (from m in _context.Modules where m.Id == id select m).FirstAsync();
+            int? parcourId = module.ParcoursId;
             module.ParcoursId = null;
             _context.Update(module);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { id = parcourId });
         }
 
         // methods
