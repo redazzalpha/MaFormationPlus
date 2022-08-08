@@ -48,7 +48,6 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             List<Module> modules = await (from m in _context.Modules where m.ParcoursId == parcours.Id select m).ToListAsync();
             return View(new ParcoursModule(parcours, modules));
-
         }
 
         public IActionResult Create()
@@ -71,7 +70,6 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
             return View(parcours);
         }
-
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -156,6 +154,15 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delier(int id)
+        {
+            Module module = await (from m in _context.Modules where m.Id == id select m).FirstAsync();
+            module.ParcoursId = null;
+            _context.Update(module);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id = id});
         }
 
         // methods

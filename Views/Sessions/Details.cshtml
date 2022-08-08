@@ -1,4 +1,4 @@
-﻿@model MaFormaPlusCoreMVC.Models.Session
+﻿@model MaFormaPlusCoreMVC.Models.SessionParcours
 
 @{
     ViewData["Title"] = "Details";
@@ -8,27 +8,82 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Libelle)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Session.Libelle)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Libelle)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Libelle)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Debut)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Session.Debut)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Debut)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Debut)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fin)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Session.Fin)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fin)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Fin)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-style">Modifier</a>
+<div class="mb-4">
+    <a asp-action="Edit" asp-route-id="@Model.Session.Id" class="btn-style">Modifier</a>
     <a asp-controller="Home" asp-action="Index" class="btn-style">Retour accueil</a>
+</div>
+
+
+<h4>Parcours associé</h4>
+<hr />
+<div>
+    <div class="container">
+        <div class="row">
+            @if (Model.Parcours != null)
+            {
+                <div class="col d-flex flex-grow-0">
+                    <a asp-controller="Parcours" asp-action="Details" asp-route-id=@Model.Parcours.Id style="text-decoration: unset; color:black; ">
+                        <figure class="item-card d-inline-block m-0" style="cursor: pointer">
+                            <img src=@Model.Parcours.Logo class="item-card-img" />
+                            <figcaption style="padding: 10px;">
+                                <div class="h6 font-weight-bold">@Model.Parcours.Nom</div>
+                                <div class="d-flex align-items-center">
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </div>
+                <div class="col">
+                    <dl class="row " style=" margin-left: 15px;">
+                        <dt class="col-sm-2">
+                            Nom
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Parcours.Nom
+                        </dd>
+                        <dt class="col-sm-2">
+                            Résumé
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Parcours.Resume
+                        </dd>
+@*                        <dd class="col-sm-10">
+                            <form asp-action="Delier" asp-route-id=@Model.Session.Id>
+                                <input type="number" hidden value=@Model.Parcours.Id name="parcoursId" />
+                                <button type="submit" class="btn btn-danger">Delier le module</button>
+                            </form>
+                        </dd>
+*@                    </dl>
+                </div>
+            }
+            else
+            {
+                <div class="col">
+                    <p class="text-center h6">
+                        Cette session ne contient pas de parcours
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
 </div>

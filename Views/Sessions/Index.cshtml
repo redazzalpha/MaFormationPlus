@@ -12,7 +12,7 @@
 <div class="container-fluid">
     @foreach (var item in Model)
     {
-        <div class="row d-flex align-items-center my-4 p-2 border" style="border-radius: 5px; box-shadow: 7px 7px 10px rgba(120, 117, 117   , 0.5)">
+        <div class="row d-flex align-items-center my-4 p-2 border" style="border-radius: 5px; box-shadow: 7px 7px 10px rgba(120, 117, 117, 0.5)">
             <span class="material-icons">school</span>
 
             <div class="col-12 col-md-4 col-lg-3">
@@ -35,96 +35,3 @@
         </div>
     }
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
-
-
-
-
-
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Libelle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Debut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fin)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Libelle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Debut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fin)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div class="d-flex">
-    <a asp-action="Create" class="btn-style" style="max-width: 200px;">Nouvelle session</a>
-    <a asp-controller="Home" asp-action="Index" class="btn-style" style="max-width: 100px;">Accueil</a>
-</div>
-
-
-*@
