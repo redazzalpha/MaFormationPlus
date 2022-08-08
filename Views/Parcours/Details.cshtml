@@ -15,8 +15,10 @@
         </div>
     </div>
     <div class="row">
+
         <div class="col d-flex flex-grow-0 my-3 mb-5">
-            <figure class="item-card-nohover d-inline-block m-0 " style="cursor: pointer">
+        <a asp-action="Edit" asp-route-id="@Model.Parcours.Id" style="color: black;" >
+            <figure class="item-card d-inline-block m-0">
                 <img src=@Model.Parcours.Logo class="item-card-img" />
                 <figcaption style="padding: 10px;">
                     <div class="h6 font-weight-bold">@Model.Parcours.Nom</div>
@@ -24,6 +26,7 @@
                     </div>
                 </figcaption>
             </figure>
+        </a>
         </div>
         <div class="col my-3">
             <dl class="row " style=" margin-left: 15px;">

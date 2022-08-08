@@ -16,26 +16,27 @@
     </div>
     @foreach (var item in Model)
     {
-        <div class="row d-flex align-items-center my-4 p-2 border" style="border-radius: 5px; box-shadow: 7px 7px 10px rgba(120, 117, 117, 0.5)">
-            <span class="material-icons">school</span>
-
-            <div class="col-12 col-md-4 col-lg-3">
-                @Html.DisplayNameFor(model => model.Libelle):
-                @Html.DisplayFor(modelItem => item.Libelle)
+        <div class="row d-flex align-items-center my-4 p-3 border" style="border-radius: 5px; box-shadow: 7px 7px 10px rgba(120, 117, 117, 0.5)">
+            <div class="col flex-grow-0">
+                <span class="material-icons">school</span>
             </div>
-            <div class="col-12 col-md-4 col-lg-3">
-                @Html.DisplayNameFor(model => model.Debut):
-                @Html.DisplayFor(modelItem => item.Debut)
-            </div>
-            <div class="col-12 col-md-4 col-lg-3">
-                @Html.DisplayNameFor(model => model.Fin):
-                @Html.DisplayFor(modelItem => item.Fin)
-            </div>
-            <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
-            </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    @Html.DisplayNameFor(model => model.Libelle):
+                    @Html.DisplayFor(modelItem => item.Libelle)
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    @Html.DisplayNameFor(model => model.Debut):
+                    @Html.DisplayFor(modelItem => item.Debut)
+                </div>
+                <div class="col-12 col-md-3 col-lg-3">
+                    @Html.DisplayNameFor(model => model.Fin):
+                    @Html.DisplayFor(modelItem => item.Fin)
+                </div>
+                <div class="col-12 col-md-5 col-lg-4 col-xl-2">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                </div>
         </div>
     }
 </div>

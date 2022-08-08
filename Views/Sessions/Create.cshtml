@@ -6,7 +6,7 @@
 
 }
 
-<h4>Nouvelle sessions</h4>
+<h4>Nouvelle session</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,16 +28,17 @@
                 <span asp-validation-for="Fin" class="text-danger"></span>
             </div>
             <div class="form-group pt-4">
-                <label for="parcours" />
-                <select name="selectedParcours" id="selectedParcours" class="select" required>
+                <select name="selectedParcours" id="selectedParcours" class="select select-choice" required>
                     <option value="">--Selection parcours--</option>
                     @foreach (Parcours item in ViewBag.parcours)
                     {
                         <option value=@item.Id>@item.Nom</option>
                     }
                 </select>
-                <span class="text-danger test">Must select a choice</span>
+                <span class="text-danger errmsg" style="margin-left: 15px;" >Choix obligatoire</span>
             </div>
+
+
             <div class="form-group  d-flex mt-4">
                 <input type="submit" value="Créer" class="btn-style" />
                 <a asp-controller="Home" asp-action="Index" class="btn-style">Accueil</a>

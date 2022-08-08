@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    <link async rel="stylesheet" href="~/css/session.css" />
 }
 
 <h4>Modification session</h4>
@@ -26,8 +27,24 @@
                 <input asp-for="Fin" class="form-control" />
                 <span asp-validation-for="Fin" class="text-danger"></span>
             </div>
+            <div class="form-group d-flex flex-column pt-4">
+                <label for="selectedParcours" class="control-label">Selection parcours</label>
+                <select name="selectedParcours" id="selectedParcours" class="select-choice">
+                    @foreach (Parcours parcours in ViewBag.parcours)
+                    {
+                        if (parcours.Id == Model.ParcoursId)
+                        {
+                            <option value=@parcours.Id selected>@parcours.Nom</option>
+                        }
+                        else
+                        {
+                            <option value=@parcours.Id>@parcours.Nom</option>
+                        }
+                    }
+                </select>
+            </div>
             <div class="form-group  d-flex mt-4">
-                <input type="submit" value="Modifier" class="btn-style" />
+                <input type="submit" value="Enregister" class="btn-style" />
                 <a asp-controller="Home" asp-action="Index" class="btn-style">Accueil</a>
             </div>
         </form>

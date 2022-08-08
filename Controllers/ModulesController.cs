@@ -26,9 +26,9 @@ namespace MaFormaPlusCoreMVC.Controllers
         // actions
         public async Task<IActionResult> Index()
         {
-              return _context.Modules != null ? 
-                          View(await _context.Modules.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Modules'  is null.");
+            return _context.Modules != null ?
+                        View(await _context.Modules.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Modules'  is null.");
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -83,7 +83,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Resume,Info,Logo")] Module @module)
+        public async Task<IActionResult> Edit(IFormFile? file, int id, [Bind("Id,Nom,Resume,Info,Logo")] Module @module)
         {
             if (id != @module.Id)
             {
@@ -94,6 +94,8 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 try
                 {
+                    DeleteImg(@module);
+                    await InsertImg(file, @module, @module.Logo);
                     _context.Update(@module);
                     await _context.SaveChangesAsync();
                 }
@@ -147,7 +149,7 @@ namespace MaFormaPlusCoreMVC.Controllers
                 }
                 _context.Modules.Remove(@module);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -155,7 +157,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         // methods
         private bool ModuleExists(int id)
         {
-          return (_context.Modules?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Modules?.Any(e => e.Id == id)).GetValueOrDefault();
         }
         private async Task InsertImg(IFormFile? file, Module module, string? logoStr = null)
         {
@@ -174,8 +176,24 @@ namespace MaFormaPlusCoreMVC.Controllers
                 }
                 module.Logo = Defines.Defines.SEVER_ADDRESS + folder + fileName;
             }
+            else if (logoStr == "")
+            {
+                string? logo = await (from m in _context.Modules where m.Id == module.Id select m.Logo).FirstOrDefaultAsync();
+                if (logo != null)
+                    module.Logo = logo;
+                else module.Logo = defaultImg;
+            }
             else if (logoStr != null) module.Logo = logoStr;
             else module.Logo = defaultImg;
+        }
+
+        private void DeleteImg(Module module)
+        {
+            if (module.Logo != Defines.Defines.DEFAULT_IMG && module.Logo != null && module.Logo != "")
+            {
+                string file = module.Logo.Split(Defines.Defines.SEVER_ADDRESS)[1];
+                System.IO.File.Delete(@"wwwroot" + file);
+            }
         }
 
     }

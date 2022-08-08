@@ -83,11 +83,15 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 return NotFound();
             }
+
+            List<Module> modules = (from m in _context.Modules select m).ToList();
+            ViewBag.modules = modules;
+
             return View(parcours);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Resume,Logo")] Parcours parcours)
+        public async Task<IActionResult> Edit(IFormFile? file, int id, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, int? selectedModule)
         {
             if (id != parcours.Id)
             {
@@ -98,6 +102,8 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 try
                 {
+                    DeleteImg(parcours);
+                    await InsertImg(file, parcours, parcours.Logo);
                     _context.Update(parcours);
                     await _context.SaveChangesAsync();
                 }
@@ -144,11 +150,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             var parcours = await _context.Parcours.FindAsync(id);
             if (parcours != null)
             {
-                if(parcours.Logo != Defines.Defines.DEFAULT_IMG && parcours.Logo != null)
-                {
-                    string file = parcours.Logo.Split(Defines.Defines.SEVER_ADDRESS)[1];
-                    System.IO.File.Delete(@"wwwroot"+ file);
-                } 
+                DeleteImg(parcours);
                 _context.Parcours.Remove(parcours);
             }
 
@@ -162,7 +164,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             module.ParcoursId = null;
             _context.Update(module);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", new { id = id});
+            return RedirectToAction("Details", new { id = id });
         }
 
         // methods
@@ -181,13 +183,29 @@ namespace MaFormaPlusCoreMVC.Controllers
                            Guid.NewGuid() +
                            Path.GetExtension(file.FileName);
                 string path = rootPath + folder + fileName;
-                using (FileStream fs = new(path, FileMode.Create)) {
+                using (FileStream fs = new(path, FileMode.Create))
+                {
                     await file.CopyToAsync(fs);
                 }
                 parcours.Logo = Defines.Defines.SEVER_ADDRESS + folder + fileName;
             }
+            else if (logoStr == "")
+            {
+                string? logo = await (from p in _context.Parcours where p.Id == parcours.Id select p.Logo).FirstOrDefaultAsync();
+                if (logo != null)
+                    parcours.Logo = logo;
+                else parcours.Logo = defaultImg;
+            }
             else if (logoStr != null) parcours.Logo = logoStr;
             else parcours.Logo = defaultImg;
+        }
+        private void DeleteImg(Parcours parcours)
+        {
+            if (parcours.Logo != Defines.Defines.DEFAULT_IMG && parcours.Logo != null && parcours.Logo != "")
+            {
+                string file = parcours.Logo.Split(Defines.Defines.SEVER_ADDRESS)[1];
+                System.IO.File.Delete(@"wwwroot" + file);
+            }
         }
         private async Task InsertModule(Parcours parcours, int? selectedModule)
         {

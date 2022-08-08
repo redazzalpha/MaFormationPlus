@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    string defaultImg = MaFormaPlusCoreMVC.Defines.Defines.SEVER_ADDRESS + "/assets/generics/no-image.png";
 }
 
 <h4>Nouveau parcours</h4>
@@ -22,12 +23,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="Logo" class="control-label"></label>
-                <input name="file" type="file" class="form-control" />
+                <input name="file" type="file" class="form-control image-input" accept="image/*" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
+                <div class="col d-flex flex-grow-0 mt-5 mb-3">
+                    <figure class="item-card-nohover d-inline-block m-0">
+                        <img src="@defaultImg" class="item-card-img image-card" />
+                        <figcaption style="padding: 10px;">
+                            <div class="h6 font-weight-bold"></div>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
             </div>
             <div class="form-group pt-4">
-                <label for="module" />
-                <select name="selectedModule" id="selectedModule">
+                <select name="selectedModule" id="selectedModule" class="select-choice">
                     <option value="">--Selection module--</option>
                     @foreach (Module item in ViewBag.modules)
                     {
@@ -43,9 +53,17 @@
     </div>
 </div>
 
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // on image change modification
+        $(document).ready(function() {
+            $(".image-input").change(function() {
+                $(".image-card").attr("src", window.URL.createObjectURL(this.files[0]));
+
+            });
+        });
+    </script>
     }

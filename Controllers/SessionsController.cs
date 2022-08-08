@@ -79,11 +79,15 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 return NotFound();
             }
+
+            List<Parcours> parcours = (from p in _context.Parcours select p).ToList();
+            ViewBag.parcours = parcours;
+
             return View(session);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Libelle,Date")] Session session)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Libelle,Debut, Fin")] Session session, int selectedParcours)
         {
             if (id != session.Id)
             {
@@ -94,6 +98,8 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 try
                 {
+                    Parcours parcours = await (from p in _context.Parcours where p.Id == selectedParcours select p).FirstAsync();
+                    session.ParcoursId = parcours.Id;
                     _context.Update(session);
                     await _context.SaveChangesAsync();
                 }
