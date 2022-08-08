@@ -1,14 +1,13 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap');
-
-html {
-    font-size: 14px;
-}
 
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
+}
+
+html {
+    font-size: 14px;
 }
 
 html {
@@ -33,10 +32,12 @@ body {
 .icon-back:hover {
     cursor: pointer;
 }
+
 .modal-header-block > a {
     text-decoration: none;
     color: black;
 }
+
 .logo-title {
     font-family: 'Mouse Memoirs', sans-serif;
 }
@@ -55,9 +56,11 @@ body {
     text-align: center;
     transition: all linear 0.3s;
 }
+
     .btn-style:hover {
         background-color: #0d6efd;
         color: white;
+        border: solid #0d6efd 1px;
     }
 
 .item-card {
@@ -73,6 +76,18 @@ body {
     .item-card:hover {
         box-shadow: 7px 7px 15px;
     }
+
+.item-card-nohover {
+    width: 18rem;
+    display: inline-block;
+    padding: 14px;
+    background-color: white;
+    margin: 2em 1em;
+    padding: 0px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 7px 7px 10px rgba(120, 117, 117, 0.5);
+}
+
 
 .item-card-img {
     width: 100%;

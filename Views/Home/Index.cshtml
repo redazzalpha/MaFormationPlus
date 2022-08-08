@@ -15,7 +15,7 @@
     <div class="items">
         @foreach (SessionParcours sessionParcours in @Model)
         {
-            <figure class="item-card">
+            <figure class="item-card-nohover">
                 <img src=@sessionParcours.Parcours.Logo class="item-card-img" />
                 <figcaption style="padding: 10px;">
                     <div class="h6">Session @sessionParcours.Session.Libelle</div>

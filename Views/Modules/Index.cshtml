@@ -6,12 +6,21 @@
 
 <h4>Liste des modules</h4>
 <div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="my-4">
+                <a asp-action="Create" class="btn-style" style="max-width: 200px;">Nouveau module</a>
+                <a asp-controller="Home" asp-action="Index" class="btn-style" style="max-width: 100px;">Accueil</a>
+            </div>
+        </div>
+    </div>
+
     @foreach (Module module in Model)
     {
         <div class="row">
-            <div class="col d-flex flex-grow-0">
+            <div class="col d-flex flex-grow-0 my-3 mb-5">
                 <a asp-controller="Modules" asp-action="Details" asp-route-id=@module.Id style="text-decoration: unset; color:black; ">
-                    <figure class="item-card d-inline-block m-0 my-3" style="cursor: pointer">
+                    <figure class="item-card d-inline-block m-0" style="cursor: pointer">
                         <img src=@module.Logo class="item-card-img" />
                         <figcaption style="padding: 10px;">
                             <div class="h6 font-weight-bold">@module.Nom</div>
@@ -21,7 +30,7 @@
                     </figure>
                 </a>
             </div>
-            <div class="col">
+            <div class="col my-3">
                 <dl class="row " style=" margin-left: 15px;">
                     <dt class="col-sm-2">
                         Nom
@@ -47,14 +56,6 @@
                         <a asp-action="Delete" asp-route-id="@module.Id" class="btn btn-outline-danger m-1">Delete</a>
                     </dd>
                 </dl>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="mb-4">
-                    <a asp-action="Create" class="btn-style" style="max-width: 200px;">Nouveau module</a>
-                    <a asp-controller="Home" asp-action="Index" class="btn-style" style="max-width: 100px;">Accueil</a>
-                </div>
             </div>
         </div>
     }

@@ -6,35 +6,48 @@
 
 <h4>Details module</h4>
 <div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Resume)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Resume)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src=@Model.Logo width="70" height="70" class="mt-4" style="border-radius: 15px; object-fit: cover;" />
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-style">Modifier</a>
-    <a asp-controller="Home" asp-action="Index" class="btn-style">Retour accueil</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="my-4">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-style">Modifier</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn-style">Accueil</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex flex-grow-0 my-3 mb-5">
+                <figure class="item-card-nohover d-inline-block m-0" style="cursor: pointer">
+                    <img src=@Model?.Logo class="item-card-img" />
+                    <figcaption style="padding: 10px;">
+                        <div class="h6 font-weight-bold">@Model?.Nom</div>
+                        <div class="d-flex align-items-center">
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col my-3">
+                <dl class="row " style=" margin-left: 15px;">
+                    <dt class="col-sm-2">
+                        Nom
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model?.Nom
+                    </dd>
+                    <dt class="col-sm-2">
+                        Résumé
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model?.Resume
+                    </dd>
+                    <dt class="col-sm-2">
+                        Info
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model?.Info
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>

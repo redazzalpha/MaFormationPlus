@@ -5,11 +5,15 @@
 }
 
 <h4>Liste des sessions</h4>
-
-
-
-
 <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="my-4">
+                <a asp-action="Create" class="btn-style" style="max-width: 200px;">Nouvelle session</a>
+                <a asp-controller="Home" asp-action="Index" class="btn-style" style="max-width: 100px;">Accueil</a>
+            </div>
+        </div>
+    </div>
     @foreach (var item in Model)
     {
         <div class="row d-flex align-items-center my-4 p-2 border" style="border-radius: 5px; box-shadow: 7px 7px 10px rgba(120, 117, 117, 0.5)">
