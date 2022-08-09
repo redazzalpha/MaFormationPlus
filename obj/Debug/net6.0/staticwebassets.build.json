@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UKqyjx+ZUop+dpzg84vyMQp6QOUMTd42zLyQ6TcW4no=",
+  "Hash": "5YUV2lgDK3LShJiZb+xNHrNIZsauwdLD+Zmd+Y9pEIc=",
   "Source": "MaFormaPlusCoreMVC",
   "BasePath": "_content/MaFormaPlusCoreMVC",
   "Mode": "Default",
@@ -1411,6 +1411,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\modules\\depositphotos_67682817-stock-photo-business-finance-and-accounting-concept_e0b6afda-6afc-4fa1-8a71-f675836d4465.jpg"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\modules\\filaire-architecture-moderne-concept-filaire-urbain-illustration-construction-filaire-du-dessin-cao-architecture_518816-1478_a2fe17b3-8a7d-4105-9f5f-0f3a9c645594.jpg",
+      "SourceId": "MaFormaPlusCoreMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
+      "BasePath": "_content/MaFormaPlusCoreMVC",
+      "RelativePath": "assets/modules/filaire-architecture-moderne-concept-filaire-urbain-illustration-construction-filaire-du-dessin-cao-architecture_518816-1478_a2fe17b3-8a7d-4105-9f5f-0f3a9c645594.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\modules\\filaire-architecture-moderne-concept-filaire-urbain-illustration-construction-filaire-du-dessin-cao-architecture_518816-1478_a2fe17b3-8a7d-4105-9f5f-0f3a9c645594.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\parcours\\Architechture_f2515d76-285e-4e9f-966d-29ec885d16eb_02d37e2c-eb55-4465-9fa4-942ff6e4b850.webp",
       "SourceId": "MaFormaPlusCoreMVC",
       "SourceType": "Discovered",
@@ -1479,6 +1496,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\parcours\\comptabilité-images-sous-licence_csp7355575_6dabb6fb-69e9-4d06-a08a-ae3a000fad1e.webp"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\parcours\\comptabilité-images-sous-licence_csp7355575_98689c9a-73eb-4971-b3b2-65924301aa2f.webp",
+      "SourceId": "MaFormaPlusCoreMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
+      "BasePath": "_content/MaFormaPlusCoreMVC",
+      "RelativePath": "assets/parcours/comptabilité-images-sous-licence_csp7355575_98689c9a-73eb-4971-b3b2-65924301aa2f.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\parcours\\comptabilité-images-sous-licence_csp7355575_98689c9a-73eb-4971-b3b2-65924301aa2f.webp"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\parcours\\conseils-pour-developper-son-site-e-commerce_4f1dc55a-d2db-426e-b9de-941e563206a2.png",
       "SourceId": "MaFormaPlusCoreMVC",
       "SourceType": "Discovered",
@@ -1528,6 +1562,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\parcours\\depositphotos_67682817-stock-photo-business-finance-and-accounting-concept_cf6594a5-b513-4c29-b5d3-ed783ae617e1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\parcours\\depositphotos_67682817-stock-photo-business-finance-and-accounting-concept_f2a2d9c8-aebf-42c1-8e89-cda94e4b2b86.jpg",
+      "SourceId": "MaFormaPlusCoreMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\",
+      "BasePath": "_content/MaFormaPlusCoreMVC",
+      "RelativePath": "assets/parcours/depositphotos_67682817-stock-photo-business-finance-and-accounting-concept_f2a2d9c8-aebf-42c1-8e89-cda94e4b2b86.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\parcours\\depositphotos_67682817-stock-photo-business-finance-and-accounting-concept_f2a2d9c8-aebf-42c1-8e89-cda94e4b2b86.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Documents\\MVS\\MaFormaPlusTp\\MaFormaPlusCoreMVC\\wwwroot\\assets\\parcours\\html_8b14a88e-ac74-4871-8ea6-1e2394526da4_b2665a2a-a1d6-46a7-9cd6-78137a686085.jpg",

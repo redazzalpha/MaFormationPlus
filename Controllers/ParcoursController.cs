@@ -15,7 +15,7 @@ namespace MaFormaPlusCoreMVC.Controllers
     {
         // fields
         private readonly ApplicationDbContext _context;
-        private IWebHostEnvironment _webHost;
+        private readonly IWebHostEnvironment _webHost;
 
         // constructors
         public ParcoursController(ApplicationDbContext context, IWebHostEnvironment webHost)
@@ -46,8 +46,17 @@ namespace MaFormaPlusCoreMVC.Controllers
                 return NotFound();
             }
 
-            List<Module> modules = await (from m in _context.Modules where m.ParcoursId == parcours.Id select m).ToListAsync();
-            return View(new ParcoursModule(parcours, modules));
+
+            List<Module> modules = new();
+            if (_context.ModuleParcours != null && _context.Modules != null)
+            {
+                modules = await (from m in _context.Modules
+                                 join mp in _context.ModuleParcours on m.Id equals mp.ModuleId
+                                 join p in _context.Parcours on mp.ParcoursId equals p.Id
+                                 where p.Id == id
+                                 select m).ToListAsync();
+            }
+            return View(new ParcoursModule() { Parcours = parcours, Modules = modules });
         }
 
         public IActionResult Create()
@@ -63,9 +72,9 @@ namespace MaFormaPlusCoreMVC.Controllers
             if (ModelState.IsValid)
             {
                 await InsertImg(file, parcours);
-                await InsertModule(parcours, selectedModule);
                 _context.Add(parcours);
                 await _context.SaveChangesAsync();
+                await InsertModule(parcours, selectedModule);
                 return RedirectToAction(nameof(Index));
             }
             return View(parcours);
@@ -85,9 +94,9 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
 
             List<Module> modules = (from m in _context.Modules select m).ToList();
-            ViewBag.modules = modules;
+            List<ModuleParcours> moduleParcours = await (from mp in _context.ModuleParcours where mp.ParcoursId == id select mp).ToListAsync();
 
-            return View(parcours);
+            return View(new ParcoursModule() { Parcours = parcours, Modules = modules, ModuleParcours = moduleParcours });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -144,6 +153,10 @@ namespace MaFormaPlusCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ModuleParcours? moduleParcours = await (from mp in _context.ModuleParcours where mp.ParcoursId == id select mp).FirstOrDefaultAsync();
+            if (moduleParcours != null)
+                _context.Remove(moduleParcours);
+
             if (_context.Parcours == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Parcours'  is null.");
@@ -161,15 +174,23 @@ namespace MaFormaPlusCoreMVC.Controllers
 
         public async Task<IActionResult> Delier(int id)
         {
-            Module module = await (from m in _context.Modules where m.Id == id select m).FirstAsync();
-            int? parcourId = module.ParcoursId;
-            module.ParcoursId = null;
-            _context.Update(module);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Details", new { id = parcourId });
+            int parcoursId = 0;
+            if (_context.ModuleParcours != null && _context.Parcours != null)
+            {
+                var moduleParcours = await (from m in _context.Modules
+                                            where m.Id == id
+                                            join mp in _context.ModuleParcours on m.Id equals mp.ModuleId
+                                            join p in _context.Parcours on mp.ParcoursId equals p.Id
+                                            select new { Parcours = p, Module = m, ModuleParcours = mp }).FirstAsync();
+
+                _context.Remove(moduleParcours.ModuleParcours);
+                await _context.SaveChangesAsync();
+                parcoursId = moduleParcours.Parcours.Id;
+            }
+            return RedirectToAction("Details", new { id = parcoursId });
         }
 
-        // methods
+        // methodsd
         private bool ParcoursExists(int id)
         {
             return (_context.Parcours?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -201,7 +222,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             else if (logoStr != null) parcours.Logo = logoStr;
             else parcours.Logo = defaultImg;
         }
-        private void DeleteImg(Parcours parcours)
+        private static void DeleteImg(Parcours parcours)
         {
             if (parcours.Logo != Defines.Defines.DEFAULT_IMG && parcours.Logo != null && parcours.Logo != "")
             {
@@ -213,9 +234,9 @@ namespace MaFormaPlusCoreMVC.Controllers
         {
             if (selectedModule != null)
             {
-                Module? module = await (from m in _context.Modules where m.Id == selectedModule select m).FirstOrDefaultAsync();
-                if (module != null)
-                    parcours.Modules.Add(module);
+                parcours.ModuleParcours.Add(new ModuleParcours() { ParcoursId = parcours.Id, ModuleId = selectedModule });
+                _context.Update(parcours);
+                await _context.SaveChangesAsync();
             }
         }
     }

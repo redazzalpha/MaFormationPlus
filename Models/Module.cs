@@ -1,4 +1,5 @@
 ﻿using MaFormaPlusCoreMVC.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,10 +14,9 @@ namespace MaFormaPlusCoreMVC.Models
         public string Info { get; set; } = string.Empty;
         public string Logo { get; set; } = string.Empty;
 
-        public int? ParcoursId { get; set; }
-        public Parcours? Parcours { get; set; }
-
         public Unite? Unite{ get; set; }
+        public ICollection<Parcours>? Parcours { get; set; }
+        public ICollection<ModuleParcours> ModuleParcours { get; set; } = new List<ModuleParcours>();
     }
 }
             

@@ -251,17 +251,11 @@ namespace MaFormaPlusCoreMVC.Migrations
                     Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Info = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParcoursId = table.Column<int>(type: "int", nullable: true),
                     UniteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Modules", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Modules_Parcours_ParcoursId",
-                        column: x => x.ParcoursId,
-                        principalTable: "Parcours",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Modules_Unites_UniteId",
                         column: x => x.UniteId,
@@ -289,6 +283,30 @@ namespace MaFormaPlusCoreMVC.Migrations
                         name: "FK_SessionStagiaire_Stagiaires_StagiairesId",
                         column: x => x.StagiairesId,
                         principalTable: "Stagiaires",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ModuleParcours",
+                columns: table => new
+                {
+                    ModulesId = table.Column<int>(type: "int", nullable: false),
+                    ParcoursId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModuleParcours", x => new { x.ModulesId, x.ParcoursId });
+                    table.ForeignKey(
+                        name: "FK_ModuleParcours_Modules_ModulesId",
+                        column: x => x.ModulesId,
+                        principalTable: "Modules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ModuleParcours_Parcours_ParcoursId",
+                        column: x => x.ParcoursId,
+                        principalTable: "Parcours",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -333,8 +351,8 @@ namespace MaFormaPlusCoreMVC.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Modules_ParcoursId",
-                table: "Modules",
+                name: "IX_ModuleParcours_ParcoursId",
+                table: "ModuleParcours",
                 column: "ParcoursId");
 
             migrationBuilder.CreateIndex(
@@ -376,7 +394,7 @@ namespace MaFormaPlusCoreMVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Modules");
+                name: "ModuleParcours");
 
             migrationBuilder.DropTable(
                 name: "SessionStagiaire");
@@ -388,13 +406,16 @@ namespace MaFormaPlusCoreMVC.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Unites");
+                name: "Modules");
 
             migrationBuilder.DropTable(
                 name: "Sessions");
 
             migrationBuilder.DropTable(
                 name: "Stagiaires");
+
+            migrationBuilder.DropTable(
+                name: "Unites");
 
             migrationBuilder.DropTable(
                 name: "Conseillers");

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaFormaPlusCoreMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220807195703_init0")]
-    partial class init0
+    [Migration("20220808195711_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,9 +65,6 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParcoursId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Resume")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -77,11 +74,32 @@ namespace MaFormaPlusCoreMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParcoursId");
-
                     b.HasIndex("UniteId");
 
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.ModuleParcours", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParcoursId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.HasIndex("ParcoursId");
+
+                    b.ToTable("ModuleParcours");
                 });
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Parcours", b =>
@@ -95,6 +113,9 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ModuleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -104,6 +125,8 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
 
                     b.ToTable("Parcours");
                 });
@@ -411,17 +434,37 @@ namespace MaFormaPlusCoreMVC.Migrations
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Module", b =>
                 {
-                    b.HasOne("MaFormaPlusCoreMVC.Models.Parcours", "Parcours")
-                        .WithMany("Modules")
-                        .HasForeignKey("ParcoursId");
-
                     b.HasOne("MaFormaPlusCoreMVC.Models.Unite", "Unite")
                         .WithMany("Modules")
                         .HasForeignKey("UniteId");
 
-                    b.Navigation("Parcours");
-
                     b.Navigation("Unite");
+                });
+
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.ModuleParcours", b =>
+                {
+                    b.HasOne("MaFormaPlusCoreMVC.Models.Module", "Module")
+                        .WithMany("ModuleParcours")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MaFormaPlusCoreMVC.Models.Parcours", "Parcours")
+                        .WithMany("ModuleParcours")
+                        .HasForeignKey("ParcoursId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+
+                    b.Navigation("Parcours");
+                });
+
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Parcours", b =>
+                {
+                    b.HasOne("MaFormaPlusCoreMVC.Models.Module", null)
+                        .WithMany("Parcours")
+                        .HasForeignKey("ModuleId");
                 });
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Session", b =>
@@ -512,9 +555,16 @@ namespace MaFormaPlusCoreMVC.Migrations
                     b.Navigation("Sessions");
                 });
 
+            modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Module", b =>
+                {
+                    b.Navigation("ModuleParcours");
+
+                    b.Navigation("Parcours");
+                });
+
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Parcours", b =>
                 {
-                    b.Navigation("Modules");
+                    b.Navigation("ModuleParcours");
 
                     b.Navigation("Sessions");
                 });
