@@ -46,7 +46,7 @@
                     <option value="">--Selection parcours--</option>
                     @foreach (Parcours parcours in Model.Parcourses)
                     {
-                        if (Model.ModuleParcours.Select(x => x.ParcoursId == parcours.Id).Count() > 0)
+                        if (await Model.IsParcoursAttached(ViewBag.context, parcours.Id))
                         {
                             <option value=@parcours.Id selected>@parcours.Nom</option>
                         }

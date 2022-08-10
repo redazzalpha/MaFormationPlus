@@ -83,7 +83,7 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             ICollection<Parcours> parcourses = await (from p in _context.Parcours select p).ToListAsync();
             List<ModuleParcours> moduleParcours = await (from mp in _context.ModuleParcours where mp.ModuleId == id select mp).ToListAsync();
-
+            ViewBag.context = _context;
             return View(new ParcoursModule() {Parcourses = parcourses, Module = @module, ModuleParcours = moduleParcours });
         }
         [HttpPost]
