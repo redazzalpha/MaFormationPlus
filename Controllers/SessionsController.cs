@@ -44,7 +44,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
 
             Parcours parcours = await (from p in _context.Parcours where p.Id == session.ParcoursId select p).FirstAsync();
-            return View(new SessionParcours(session, parcours));
+            return View(new SessionParcours() { Session = session, Parcours = parcours});
         }
 
         public IActionResult Create()

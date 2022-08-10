@@ -59,11 +59,10 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(new ParcoursModule() { Parcours = parcours, Modules = modules });
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            List<Module> modules = (from m in _context.Modules select m).ToList();
-            ViewBag.modules = modules;
-            return View();
+            ICollection<Module> modules = await (from m in _context.Modules select m).ToListAsync();
+            return View(new ParcoursModule() { Modules = modules});
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,7 +94,7 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             List<Module> modules = (from m in _context.Modules select m).ToList();
             List<ModuleParcours> moduleParcours = await (from mp in _context.ModuleParcours where mp.ParcoursId == id select mp).ToListAsync();
-
+            ViewBag.context = _context;
             return View(new ParcoursModule() { Parcours = parcours, Modules = modules, ModuleParcours = moduleParcours });
         }
         [HttpPost]

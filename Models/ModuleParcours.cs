@@ -10,7 +10,5 @@ namespace MaFormaPlusCoreMVC.Models
         public Module? Module { get; set; }
         public int? ParcoursId { get; set; }
         public Parcours? Parcours { get; set; }
-
-
     }
 }

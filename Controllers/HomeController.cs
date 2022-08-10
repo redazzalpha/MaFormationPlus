@@ -1,6 +1,7 @@
 ﻿using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace MaFormaPlusCoreMVC.Controllers
@@ -19,18 +20,20 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
 
         // actions
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<SessionParcours> sessionParcours = new();
-            List<Session> sessions = (from s in _context.Sessions select s).ToList();
 
-            foreach (Session session in sessions)
+
+
+            ICollection<SessionParcours> sessionParcourses = new List<SessionParcours>();
+            if (_context.Parcours != null)
             {
-                Parcours parcours = (from p in _context.Parcours where p.Id == session.ParcoursId select p).First() ;
-                sessionParcours.Add(new SessionParcours(session, parcours));
+                sessionParcourses = await (from s in _context.Sessions
+                                           join p in _context.Parcours on s.ParcoursId equals p.Id
+                                           select new SessionParcours() { Session = s, Parcours = p }).ToListAsync();
             }
 
-            return View(sessionParcours);
+            return View(sessionParcourses);
         }
 
         public IActionResult Privacy()

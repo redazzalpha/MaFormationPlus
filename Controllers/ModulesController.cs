@@ -14,7 +14,7 @@ namespace MaFormaPlusCoreMVC.Controllers
     {
         // fields
         private readonly ApplicationDbContext _context;
-        private IWebHostEnvironment _webHost;
+        private readonly IWebHostEnvironment _webHost;
 
         // constructors
         public ModulesController(ApplicationDbContext context, IWebHostEnvironment webHost)
@@ -48,9 +48,10 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(@module);
         }
 
-        public IActionResult Create()
+        public  async Task<IActionResult> Create()
         {
-            return View();
+            ICollection<Parcours> parcourses = await (from p in _context.Parcours select p).ToListAsync();
+            return View(new ParcoursModule() { Parcourses = parcourses});
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -79,7 +80,11 @@ namespace MaFormaPlusCoreMVC.Controllers
             {
                 return NotFound();
             }
-            return View(@module);
+
+            ICollection<Parcours> parcourses = await (from p in _context.Parcours select p).ToListAsync();
+            List<ModuleParcours> moduleParcours = await (from mp in _context.ModuleParcours where mp.ModuleId == id select mp).ToListAsync();
+
+            return View(new ParcoursModule() {Parcourses = parcourses, Module = @module, ModuleParcours = moduleParcours });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -135,6 +140,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             if (_context.Modules == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Modules'  is null.");
@@ -148,6 +154,11 @@ namespace MaFormaPlusCoreMVC.Controllers
                     System.IO.File.Delete(@"wwwroot" + file);
                 }
                 _context.Modules.Remove(@module);
+            }
+            ICollection<ModuleParcours> moduleParcours = await (from mp in _context.ModuleParcours where mp.ModuleId == id select mp).ToListAsync();
+            foreach (var item in moduleParcours)
+            {
+                _context.Remove(item);
             }
 
             await _context.SaveChangesAsync();
@@ -187,7 +198,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             else module.Logo = defaultImg;
         }
 
-        private void DeleteImg(Module module)
+        private static void DeleteImg(Module module)
         {
             if (module.Logo != Defines.Defines.DEFAULT_IMG && module.Logo != null && module.Logo != "")
             {

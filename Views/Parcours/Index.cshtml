@@ -14,42 +14,57 @@
             </div>
         </div>
     </div>
-    @foreach (Parcours parcours in Model)
+    @if (Model.Count() > 0)
+    {
+
+        @foreach (Parcours parcours in Model)
+        {
+            <div class="row">
+                <div class="col d-flex flex-grow-0 my-3 mb-5">
+                    <a asp-controller="Parcours" asp-action="Details" asp-route-id=@parcours.Id title="voir les détails du parcours" style="text-decoration: unset; color:black; ">
+                        <figure class="item-card m-0" style="cursor: pointer">
+                            <img src=@parcours.Logo class="item-card-img" />
+                            <figcaption style="padding: 10px;">
+                                <div class="h6 font-weight-bold">@parcours.Nom</div>
+                                <div class="d-flex align-items-center">
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </div>
+                <div class="col my-3">
+                    <dl class="row " style=" margin-left: 15px;">
+                        <dt class="col-sm-2">
+                            Nom
+                        </dt>
+                        <dd class="col-sm-10">
+                            @parcours.Nom
+                        </dd>
+                        <dt class="col-sm-2">
+                            Résumé
+                        </dt>
+                        <dd class="col-sm-10">
+                            @parcours.Resume
+                        </dd>
+                        <dd class="col-sm-10 d-flex ">
+                            <a asp-action="Edit" asp-route-id="@parcours.Id" class="btn btn-outline-primary m-1">Modifier</a>
+                            <a asp-action="Details" asp-route-id="@parcours.Id" class="btn btn-outline-secondary m-1">Details</a>
+                            <a asp-action="Delete" asp-route-id="@parcours.Id" class="btn btn-outline-danger m-1">Supprimer</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        }
+    }
+    else
     {
         <div class="row">
-            <div class="col d-flex flex-grow-0 my-3 mb-5">
-                <a asp-controller="Parcours" asp-action="Details" asp-route-id=@parcours.Id title="voir les détails du parcours" style="text-decoration: unset; color:black; ">
-                    <figure class="item-card m-0" style="cursor: pointer">
-                        <img src=@parcours.Logo class="item-card-img" />
-                        <figcaption style="padding: 10px;">
-                            <div class="h6 font-weight-bold">@parcours.Nom</div>
-                            <div class="d-flex align-items-center">
-                            </div>
-                        </figcaption>
-                    </figure>
-                </a>
-            </div>
-            <div class="col my-3">
-                <dl class="row " style=" margin-left: 15px;">
-                    <dt class="col-sm-2">
-                        Nom
-                    </dt>
-                    <dd class="col-sm-10">
-                        @parcours.Nom
-                    </dd>
-                    <dt class="col-sm-2">
-                        Résumé
-                    </dt>
-                    <dd class="col-sm-10">
-                        @parcours.Resume
-                    </dd>
-                    <dd class="col-sm-10 d-flex ">
-                        <a asp-action="Edit" asp-route-id="@parcours.Id" class="btn btn-outline-primary m-1">Modifier</a>
-                        <a asp-action="Details" asp-route-id="@parcours.Id" class="btn btn-outline-secondary m-1">Details</a>
-                        <a asp-action="Delete" asp-route-id="@parcours.Id" class="btn btn-outline-danger m-1">Supprimer</a>
-                    </dd>
-                </dl>
+            <div class="col">
+                <p class="text-center h6">
+                    Aucun parcours disponible
+                </p>
             </div>
         </div>
     }
+
 </div>

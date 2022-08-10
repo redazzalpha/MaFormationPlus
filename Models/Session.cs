@@ -10,8 +10,8 @@ namespace MaFormaPlusCoreMVC.Models
         public string Debut { get; set; } = string.Empty;
         public string Fin { get; set; } = string.Empty;
         public int ParcoursId{ get; set; }
-        public Parcours? Parcours { get; set; }
+        public Parcours Parcours { get; set; } = new();
         public Conseiller? Conseiller { get; set; }
-        public ICollection<Stagiaire> Stagiaires { get; set; } = new List<Stagiaire>();
+        public ICollection<Stagiaire>? Stagiaires { get; set; }
     }
 }

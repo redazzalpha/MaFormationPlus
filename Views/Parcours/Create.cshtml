@@ -1,4 +1,4 @@
-﻿@model MaFormaPlusCoreMVC.Models.Parcours
+﻿@model MaFormaPlusCoreMVC.Models.ParcoursModule
 
 @{
     ViewData["Title"] = "Create";
@@ -12,19 +12,19 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+                <label asp-for="Parcours.Nom" class="control-label"></label>
+                <input asp-for="Parcours.Nom" class="form-control" />
+                <span asp-validation-for="Parcours.Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Resume" class="control-label"></label>
-                <input asp-for="Resume" class="form-control" />
-                <span asp-validation-for="Resume" class="text-danger"></span>
+                <label asp-for="Parcours.Resume" class="control-label"></label>
+                <input asp-for="Parcours.Resume" class="form-control" />
+                <span asp-validation-for="Parcours.Resume" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Logo" class="control-label"></label>
+                <label asp-for="Parcours.Logo" class="control-label"></label>
                 <input name="file" type="file" class="form-control image-input" accept="image/*" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+                <span asp-validation-for="@Model.Parcours.Logo" class="text-danger"></span>
                 <div class="col d-flex flex-grow-0 mt-5 mb-3">
                     <figure class="item-card-nohover d-inline-block m-0">
                         <img src="@defaultImg" class="item-card-img image-card" />
@@ -39,7 +39,7 @@
             <div class="form-group pt-4">
                 <select name="selectedModule" id="selectedModule" class="select-choice">
                     <option value="">--Selection module--</option>
-                    @foreach (Module item in ViewBag.modules)
+                    @foreach (Module item in Model.Modules)
                     {
                         <option value=@item.Id>@item.Nom</option>
                     }

@@ -1,7 +1,24 @@
-﻿@model MaFormaPlusCoreMVC.Models.ParcoursModule
+﻿@using MaFormaPlusCoreMVC.Data
+@using Microsoft.EntityFrameworkCore
+@model MaFormaPlusCoreMVC.Models.ParcoursModule
 
 @{
     ViewData["Title"] = "Edit";
+}
+@functions {
+    public async Task<bool> IsAttached(int moduleId)
+    {
+        ApplicationDbContext _contenxt = ViewBag.context;
+        if (_contenxt.Modules != null)
+        {
+            List<Module> attachedModules = await (from mp in _contenxt.ModuleParcours
+                    where mp.ParcoursId == Model.Parcours.Id
+                    join m in _contenxt.Modules on mp.ModuleId equals moduleId
+                    select m).ToListAsync();
+            return attachedModules.Count() > 0;
+        }
+        return false;
+    }
 }
 
 <h4>Modification parcours</h4>
@@ -41,7 +58,7 @@
                     <option value="">--Selection module--</option>
                     @foreach (Module module in Model.Modules)
                     {
-                        if (Model.ModuleParcours.Select(x => x.ModuleId == module.Id).Count() > 0)
+                        if (await @IsAttached(module.Id))
                         {
                             <option value=@module.Id selected>@module.Nom</option>
                         }

@@ -1,4 +1,4 @@
-﻿@model MaFormaPlusCoreMVC.Models.Module
+﻿@model MaFormaPlusCoreMVC.Models.ParcoursModule
 
 @{
     ViewData["Title"] = "Create";
@@ -12,24 +12,24 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+                <label asp-for="Module.Nom" class="control-label"></label>
+                <input asp-for="Module.Nom" class="form-control" />
+                <span asp-validation-for="Module.Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Resume" class="control-label"></label>
-                <input asp-for="Resume" class="form-control" />
-                <span asp-validation-for="Resume" class="text-danger"></span>
+                <label asp-for="Module.Resume" class="control-label"></label>
+                <input asp-for="Module.Resume" class="form-control" />
+                <span asp-validation-for="Module.Resume" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Info" class="control-label"></label>
-                <input asp-for="Info" class="form-control" />
-                <span asp-validation-for="Info" class="text-danger"></span>
+                <label asp-for="Module.Info" class="control-label"></label>
+                <input asp-for="Module.Info" class="form-control" />
+                <span asp-validation-for="Module.Info" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Logo" class="control-label"></label>
+                <label asp-for="Module.Logo" class="control-label"></label>
                 <input name="file" type="file" class="form-control image-input" accept="image/*" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+                <span asp-validation-for="@Model.Module.Logo" class="text-danger"></span>
                 <div class="col d-flex flex-grow-0 my-3 my-5">
                     <figure class="item-card-nohover d-inline-block m-0">
                         <img src="@defaultImg" class="item-card-img image-card" />
@@ -41,6 +41,16 @@
                     </figure>
                 </div>
             </div>
+            <div class="form-group pt-4">
+                <select name="selectedParcours" id="selectedParcours" class="select-choice">
+                    <option value="">--Selection parcours--</option>
+                    @foreach (Parcours parcours in Model.Parcourses)
+                    {
+                        <option value=@parcours.Id>@parcours.Nom</option>
+                    }
+                </select>
+            </div>
+
             <div class="form-group  d-flex mt-4">
                 <input type="submit" value="Créer" class="btn-style" />
                 <a asp-controller="Home" asp-action="Index" class="btn-style">Accueil</a>

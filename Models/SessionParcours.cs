@@ -2,13 +2,9 @@
 {
     public class SessionParcours
     {
-        public Session Session { get; set; }
-        public Parcours Parcours { get; set; }
-
-        public SessionParcours(Session session, Parcours parcours)
-        {
-            Session = session;
-            Parcours = parcours;
-        }
+        public Session Session { get; set; } = new();
+        public Parcours Parcours { get; set; } = new();
+        public ICollection<Session> Sessions { get; set; } = new List<Session>();
+        public ICollection<Parcours> parcourses{ get; set; } = new List<Parcours>();
     }
 }
