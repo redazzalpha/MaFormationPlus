@@ -42,8 +42,9 @@
                 </div>
             </div>
             <div class="form-group d-flex flex-column pt-4">
-                <select name="selectedModule" id="selectedModule" class="select-choice">
-                    <option value="">--Selection parcours--</option>
+                <label for="selectedParcours" class="mb-1">Selection parcours</label>
+                <select name="selectedParcours" id="selectedParcours" class="select-choice" multiple>
+                    <option value="">Aucun</option>
                     @foreach (Parcours parcours in Model.Parcourses)
                     {
                         if (await Model.IsParcoursAttached(ViewBag.context, parcours.Id))

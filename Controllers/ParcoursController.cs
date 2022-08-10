@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MaFormaPlusCoreMVC.Data;
+﻿using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
-using System.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace MaFormaPlusCoreMVC.Controllers
 {
@@ -62,18 +57,18 @@ namespace MaFormaPlusCoreMVC.Controllers
         public async Task<IActionResult> Create()
         {
             ICollection<Module> modules = await (from m in _context.Modules select m).ToListAsync();
-            return View(new ParcoursModule() { Modules = modules});
+            return View(new ParcoursModule() { Modules = modules });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, int? selectedModule)
+        public async Task<IActionResult> Create(IFormFile? file, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, ICollection<int?> selectedModule)
         {
             if (ModelState.IsValid)
             {
                 await InsertImg(file, parcours);
                 _context.Add(parcours);
                 await _context.SaveChangesAsync();
-                await InsertModule(parcours, selectedModule);
+                await InsertModules(parcours, selectedModule);
                 return RedirectToAction(nameof(Index));
             }
             return View(parcours);
@@ -99,7 +94,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IFormFile? file, int id, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, int? selectedModule)
+        public async Task<IActionResult> Edit(IFormFile? file, int id, [Bind("Id,Nom,Resume,Logo")] Parcours parcours, ICollection<int?> selectedModule)
         {
             if (id != parcours.Id)
             {
@@ -111,8 +106,9 @@ namespace MaFormaPlusCoreMVC.Controllers
                 try
                 {
                     DeleteImg(parcours);
-                    await InsertImg(file, parcours, parcours.Logo);
-                    await InsertModule(parcours, selectedModule);
+                    await InsertImg(file, parcours);
+                    await DeleteModules(id);
+                    await InsertModules(parcours, selectedModule);
                     _context.Update(parcours);
                     await _context.SaveChangesAsync();
                 }
@@ -152,10 +148,6 @@ namespace MaFormaPlusCoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            ModuleParcours? moduleParcours = await (from mp in _context.ModuleParcours where mp.ParcoursId == id select mp).FirstOrDefaultAsync();
-            if (moduleParcours != null)
-                _context.Remove(moduleParcours);
-
             if (_context.Parcours == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Parcours'  is null.");
@@ -164,10 +156,10 @@ namespace MaFormaPlusCoreMVC.Controllers
             if (parcours != null)
             {
                 DeleteImg(parcours);
+                await DeleteModules(id);
                 _context.Parcours.Remove(parcours);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -194,7 +186,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         {
             return (_context.Parcours?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        private async Task InsertImg(IFormFile? file, Parcours parcours, string? logoStr = null)
+        private async Task InsertImg(IFormFile? file, Parcours parcours)
         {
             string defaultImg = Defines.Defines.SEVER_ADDRESS + "/assets/generics/no-image.png";
             if (file != null)
@@ -211,15 +203,29 @@ namespace MaFormaPlusCoreMVC.Controllers
                 }
                 parcours.Logo = Defines.Defines.SEVER_ADDRESS + folder + fileName;
             }
-            else if (logoStr == "")
+            else if (parcours.Logo == "")
             {
                 string? logo = await (from p in _context.Parcours where p.Id == parcours.Id select p.Logo).FirstOrDefaultAsync();
                 if (logo != null)
                     parcours.Logo = logo;
                 else parcours.Logo = defaultImg;
             }
-            else if (logoStr != null) parcours.Logo = logoStr;
+            else if (parcours.Logo != null) { }
             else parcours.Logo = defaultImg;
+        }
+        private async Task InsertModules(Parcours parcours, ICollection<int?> selectedModule)
+        {
+            if (selectedModule != null)
+                foreach (var moduleId in selectedModule)
+                {
+                    await InsertModule(parcours, moduleId);
+                }
+        }
+        private async Task InsertModule(Parcours parcours, int? moduleId)
+        {
+            parcours.ModuleParcours.Add(new ModuleParcours() { ParcoursId = parcours.Id, ModuleId = moduleId });
+            _context.Update(parcours);
+            await _context.SaveChangesAsync();
         }
         private static void DeleteImg(Parcours parcours)
         {
@@ -229,14 +235,14 @@ namespace MaFormaPlusCoreMVC.Controllers
                 System.IO.File.Delete(@"wwwroot" + file);
             }
         }
-        private async Task InsertModule(Parcours parcours, int? selectedModule)
+        private async Task DeleteModules(int id)
         {
-            if (selectedModule != null)
+            ICollection<ModuleParcours> moduleParcourses = await (from mp in _context.ModuleParcours where mp.ParcoursId == id select mp).ToListAsync();
+            foreach (ModuleParcours moduleParcours in moduleParcourses)
             {
-                parcours.ModuleParcours.Add(new ModuleParcours() { ParcoursId = parcours.Id, ModuleId = selectedModule });
-                _context.Update(parcours);
-                await _context.SaveChangesAsync();
+                _context.Remove(moduleParcours);
             }
+
         }
     }
 }

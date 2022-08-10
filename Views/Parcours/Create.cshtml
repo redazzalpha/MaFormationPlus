@@ -37,8 +37,9 @@
                 </div>
             </div>
             <div class="form-group pt-4">
-                <select name="selectedModule" id="selectedModule" class="select-choice">
-                    <option value="">--Selection module--</option>
+                <label for="selectedModule" class="mb-1">Selection modules</label>
+                <select name="selectedModule" id="selectedModule" class="select-choice" multiple>
+                    <option value="">Aucun</option>
                     @foreach (Module item in Model.Modules)
                     {
                         <option value=@item.Id>@item.Nom</option>

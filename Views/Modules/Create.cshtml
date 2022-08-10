@@ -42,8 +42,9 @@
                 </div>
             </div>
             <div class="form-group pt-4">
-                <select name="selectedParcours" id="selectedParcours" class="select-choice">
-                    <option value="">--Selection parcours--</option>
+                <label for="selectedParcours" class="mb-1">Selection parcours</label>
+                <select name="selectedParcours" id="selectedParcours" class="select-choice" multiple>
+                    <option value="">Aucun</option>
                     @foreach (Parcours parcours in Model.Parcourses)
                     {
                         <option value=@parcours.Id>@parcours.Nom</option>
