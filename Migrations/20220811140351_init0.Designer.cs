@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaFormaPlusCoreMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220810235337_initTest")]
-    partial class initTest
+    [Migration("20220811140351_init0")]
+    partial class init0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,6 +204,7 @@ namespace MaFormaPlusCoreMVC.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")

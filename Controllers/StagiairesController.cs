@@ -28,7 +28,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
 
         // GET: Stagiaires/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null || _context.Stagiaires == null)
             {
@@ -88,7 +88,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Stagiaire stagiaire)
+        public async Task<IActionResult> Edit(string id, [Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Stagiaire stagiaire)
         {
             if (id != stagiaire.Id)
             {
@@ -119,7 +119,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
 
         // GET: Stagiaires/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null || _context.Stagiaires == null)
             {
@@ -155,7 +155,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StagiaireExists(int id)
+        private bool StagiaireExists(string id)
         {
           return (_context.Stagiaires?.Any(e => e.Id == id)).GetValueOrDefault();
         }

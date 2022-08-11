@@ -10,16 +10,38 @@
         <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="register-modal-center" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="d-flex justify-content-center modal-header-block" style="background-color: #00ACC1" >
+                    <div class="d-flex justify-content-center modal-header-block" style="background-color: #00ACC1">
                         <a asp-controller="Home" asp-action="Index" class="material-icons icon-back text-white" style="position:absolute; left: 10px; top: 5px;">backspace</a>
                         <div class="d-flex flex-column">
                             <h5 class="modal-title text-center text-white" id="login-modal-title">MaFormationPlus</h5>
                             <h6 class="modal-title text-center text-white" id="login-modal-title">S'inscrire</h6>
                         </div>
                     </div>
-                        <div class="modal-body">
+                    <div class="modal-body">
                         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                            <div class="form-floating pb-2">
+                                <input asp-for="Input.Nom" class="form-control" autocomplete="nom" aria-required="true" />
+                                <label asp-for="Input.Nom"></label>
+                                <span asp-validation-for="Input.Nom" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating pb-2">
+                                <input asp-for="Input.Prenom" class="form-control" autocomplete="prenom" aria-required="true" />
+                                <label asp-for="Input.Prenom"></label>
+                                <span asp-validation-for="Input.Prenom" class="text-danger"></span>
+                            </div>
+
+@*                            <div class="form-floating pb-2">
+                                <input asp-for="Input.Age" class="form-control" autocomplete="age" aria-required="true" />
+                                <label asp-for="Input.Age"></label>
+                                <span asp-validation-for="Input.Age" class="text-danger"></span>
+                            </div>
+
+*@
+
                             <div class="form-floating pb-2">
                                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                                 <label asp-for="Input.Email"></label>

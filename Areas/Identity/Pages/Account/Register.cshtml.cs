@@ -2,38 +2,32 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
+using MaFormaPlusCoreMVC.Models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<Stagiaire> _signInManager;
+        private readonly UserManager<Stagiaire> _userManager;
+        private readonly IUserStore<Stagiaire> _userStore;
+        private readonly IUserEmailStore<Stagiaire> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Stagiaire> userManager,
+            IUserStore<Stagiaire> userStore,
+            SignInManager<Stagiaire> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -70,6 +64,28 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
+
+
+            [Required]
+            [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
+            [Display(Name = "Nom")]
+            public string Nom { get; set; }
+
+
+            [Required]
+            [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
+            [Display(Name = "Prenom")]
+            public string Prenom { get; set; }
+
+            //[Required]
+            //[StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
+            //[Display(Name = "Age")]
+            //public string Age { get; set; }
+
+
+
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -116,6 +132,8 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Nom = Input.Nom;
+                user.Prenom = Input.Prenom;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -154,11 +172,11 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private Stagiaire CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<Stagiaire>();
             }
             catch
             {
@@ -168,13 +186,13 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<Stagiaire> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<Stagiaire>)_userStore;
         }
     }
 }

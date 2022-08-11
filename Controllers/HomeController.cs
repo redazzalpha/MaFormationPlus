@@ -22,10 +22,7 @@ namespace MaFormaPlusCoreMVC.Controllers
         // actions
         public async Task<IActionResult> Index()
         {
-
-
-
-            ICollection<SessionParcours> sessionParcourses = new List<SessionParcours>();
+            ICollection < SessionParcours > sessionParcourses = new List<SessionParcours>();
             if (_context.Parcours != null)
             {
                 sessionParcourses = await (from s in _context.Sessions
@@ -47,7 +44,4 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-
-
-
 }

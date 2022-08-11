@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MaFormaPlusCoreMVC.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<Stagiaire>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
