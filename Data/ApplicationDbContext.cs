@@ -10,7 +10,6 @@ namespace MaFormaPlusCoreMVC.Data
             : base(options)
         {
         }
-
         public DbSet<Conseiller>? Conseillers { get; set; }
         public DbSet<Module>? Modules { get; set; }
         public DbSet<Parcours>? Parcours { get; set; }
@@ -18,6 +17,7 @@ namespace MaFormaPlusCoreMVC.Data
         public DbSet<Stagiaire>? Stagiaires { get; set; }
         public DbSet<Unite>? Unites { get; set; }
         public DbSet<ModuleParcours>? ModuleParcours { get; set; }
+        public DbSet<Ville>? Villes { get; set; }
 
     }
 }

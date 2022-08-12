@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -23,13 +25,14 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<Stagiaire> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<Stagiaire> userManager,
             IUserStore<Stagiaire> userStore,
             SignInManager<Stagiaire> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -37,6 +40,7 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -64,51 +68,42 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-
-
-
             [Required]
             [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
             [Display(Name = "Nom")]
             public string Nom { get; set; }
-
 
             [Required]
             [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
             [Display(Name = "Prenom")]
             public string Prenom { get; set; }
 
-            //[Required]
-            //[StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            //[Display(Name = "Age")]
-            //public string Age { get; set; }
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Date de naissance")]
+            public string DateDeNaissance { get; set; }
 
-
-
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
+            [Required]
+            [Display(Name = "Numéro ")]
+            public int AdresseNum { get; set; }
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
+            [Display(Name = "Adresse")]
+            public string AdresseNom { get; set; }
+            [Required]
+            [Display(Name = "Code postal")]
+            public int CodePostal { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -118,6 +113,9 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            _context.Roles.Add(new IdentityRole() { Name = "Conseiller" });
+            await _context.SaveChangesAsync();
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -134,7 +132,13 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Nom = Input.Nom;
                 user.Prenom = Input.Prenom;
+                user.DateDeNaissance = Input.DateDeNaissance;
+                user.Adresse = $"{Input.AdresseNum} {Input.AdresseNom} {Input.CodePostal}";
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                IdentityRole role = await (from r in _context.Roles where r.Name == "Stagiaire" select r).FirstAsync();
+                _context.UserRoles.Add(new IdentityUserRole<string>() { UserId = user.Id, RoleId = role.Id });
+                await _context.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {
@@ -193,6 +197,22 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
             return (IUserEmailStore<Stagiaire>)_userStore;
+        }
+
+        public async Task<ICollection<Ville>> GetVilles()
+        {
+
+            return await (from v in _context.Villes orderby v.Nom ascending select v).ToListAsync();
+        }
+        public async Task<ICollection<Ville>> SearchVille(string villeName = "") 
+        {
+            string value = (string)ViewData["test"];
+            return await (from v in _context.Villes where v.Nom.Contains(villeName) select v).ToListAsync();
+        }
+        public string GetVillesStr()
+        {
+            string villes = System.IO.File.ReadAllText(@"c:\Users\Asus\Desktop\villes.json");
+            return villes;
         }
     }
 }
