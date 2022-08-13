@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MaFormaPlusCoreMVC.Data;
+﻿using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MaFormaPlusCoreMVC.Controllers
 {
@@ -14,11 +10,14 @@ namespace MaFormaPlusCoreMVC.Controllers
     {
         // fields
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Stagiaire> _userManager;
+
 
         // constructor
-        public SessionsController(ApplicationDbContext context)
+        public SessionsController(ApplicationDbContext context, UserManager<Stagiaire> userManager)
         {
             _context = context;
+            _userManager = userManager; 
         }
 
         // actions
@@ -151,6 +150,16 @@ namespace MaFormaPlusCoreMVC.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public void Subscribe(int id)
+        {
+            if(ModelState.IsValid)
+            {
+                string userId = _userManager.GetUserId(HttpContext.User);
+            }
+
         }
 
         // methods

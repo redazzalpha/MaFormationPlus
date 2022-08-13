@@ -1,4 +1,5 @@
-﻿@model List<MaFormaPlusCoreMVC.Models.SessionParcours>
+﻿@using MaFormaPlusCoreMVC.Models
+@model List<MaFormaPlusCoreMVC.Models.SessionParcours>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -20,7 +21,9 @@
                     <div class="h6">Session @sessionParcours.Session.Libelle</div>
                     <div class="d-flex align-items-center">
                         <div class="" style=" font-size: 14px; margin-right: 10px">Du @sessionParcours.Session.Debut<br />au @sessionParcours.Session.Fin</div>
-                        <a asp-controller="Sessions" asp-action="Edit" asp-route-id=@sessionParcours.Session.Id class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</a>
+                        <form asp-controller="Sessions" asp-action="Subscribe" asp-route-id=@sessionParcours.Session.Id method="post">
+                            <button type="submit" class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</button>
+                        </form>
                     </div>
                 </figcaption>
             </figure>
@@ -47,7 +50,9 @@
                             <div class="h6 font-weight-bold">Session @sessionParcours.Session.Libelle</div>
                             <div class="d-flex align-items-center">
                                 <div class="" style=" font-size: 14px; margin-right: 10px">Du @sessionParcours.Session.Debut<br />au @sessionParcours.Session.Fin</div>
-                                <a asp-controller="Sessions" asp-action="Edit" asp-route-id=@sessionParcours.Session.Id class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</a>
+                                <form asp-controller="Sessions" asp-action="Subscribe" asp-route-id=@sessionParcours.Session.Id  method="post">
+                                    <button type="submit"  class="btn-style text-center" style="display: inline; text-decoration: unset;">S'inscrire</button>
+                                </form>
                             </div>
                         </figcaption>
                     </figure>

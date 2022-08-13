@@ -113,9 +113,6 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            _context.Roles.Add(new IdentityRole() { Name = "Conseiller" });
-            await _context.SaveChangesAsync();
-
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -199,20 +196,5 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             return (IUserEmailStore<Stagiaire>)_userStore;
         }
 
-        public async Task<ICollection<Ville>> GetVilles()
-        {
-
-            return await (from v in _context.Villes orderby v.Nom ascending select v).ToListAsync();
-        }
-        public async Task<ICollection<Ville>> SearchVille(string villeName = "") 
-        {
-            string value = (string)ViewData["test"];
-            return await (from v in _context.Villes where v.Nom.Contains(villeName) select v).ToListAsync();
-        }
-        public string GetVillesStr()
-        {
-            string villes = System.IO.File.ReadAllText(@"c:\Users\Asus\Desktop\villes.json");
-            return villes;
-        }
     }
 }
