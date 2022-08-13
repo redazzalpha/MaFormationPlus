@@ -9,7 +9,6 @@ namespace MaFormaPlusCoreMVC.Models
         public string Nom { get; set; } = string.Empty;
         public string Resume { get; set; } = string.Empty;
         public string? Logo { get; set; } = string .Empty;
-        public ICollection<Session> Sessions { get; set; } = new List<Session>();
         public ICollection<ModuleParcours> ModuleParcours { get; set; } = new List<ModuleParcours>();
     }
 }

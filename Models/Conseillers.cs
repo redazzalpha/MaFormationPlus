@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MaFormaPlusCoreMVC.Models
 {
-    public class Conseiller
+    public class Conseiller : Utilisateur
     {
-        [Key]
-        public int Id { get; set; }
-        public string Nom { get; set; } = string.Empty;
-        public string Prenom { get; set; } = string.Empty;
-
         public ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

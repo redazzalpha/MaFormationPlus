@@ -10,14 +10,14 @@ namespace MaFormaPlusCoreMVC.Controllers
     {
         // fields
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Stagiaire> _userManager;
+        private readonly UserManager<Utilisateur> _userManager;
 
 
         // constructor
-        public SessionsController(ApplicationDbContext context, UserManager<Stagiaire> userManager)
+        public SessionsController(ApplicationDbContext context, UserManager<Utilisateur> userManager)
         {
             _context = context;
-            _userManager = userManager; 
+            _userManager = userManager;
         }
 
         // actions
@@ -43,7 +43,7 @@ namespace MaFormaPlusCoreMVC.Controllers
             }
 
             Parcours parcours = await (from p in _context.Parcours where p.Id == session.ParcoursId select p).FirstAsync();
-            return View(new SessionParcours() { Session = session, Parcours = parcours});
+            return View(new SessionParcours() { Session = session, Parcours = parcours });
         }
 
         public IActionResult Create()
@@ -61,6 +61,12 @@ namespace MaFormaPlusCoreMVC.Controllers
                 InsertParcours(session, selectedParcours);
                 _context.Add(session);
                 await _context.SaveChangesAsync();
+
+                string conseillerId = _userManager.GetUserId(HttpContext.User);
+                Conseiller conseiller = await (from c in _context.Conseillers where c.Id == conseillerId select c).FirstAsync();
+                conseiller.Sessions.Add(session);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(session);
@@ -153,13 +159,15 @@ namespace MaFormaPlusCoreMVC.Controllers
         }
 
         [HttpPost]
-        public void Subscribe(int id)
+        public async Task<IActionResult> Subscribe(int id)
         {
-            if(ModelState.IsValid)
+            string? stagiaireId;
+            if (ModelState.IsValid && IsConnected(out stagiaireId))
             {
-                string userId = _userManager.GetUserId(HttpContext.User);
+                _context.SessionUtilisateurs?.Add(new SessionStagiaire() { SessionId = id, StagiaireId = stagiaireId });
+                await _context.SaveChangesAsync();
             }
-
+            return RedirectToAction("Index", "Home");
         }
 
         // methods
@@ -172,6 +180,11 @@ namespace MaFormaPlusCoreMVC.Controllers
             Parcours? parcours = (from p in _context.Parcours where p.Id == selectedParcours select p).FirstOrDefault();
             if (parcours != null)
                 session.Parcours = parcours;
+        }
+        private bool IsConnected(out string? stagiaireId)
+        {
+            stagiaireId = _userManager.GetUserId(HttpContext.User);
+            return stagiaireId != null;
         }
     }
 }

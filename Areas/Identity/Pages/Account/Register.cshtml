@@ -24,20 +24,6 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <div class="container-fluid" style="padding: 0">
-                                <div class="row ">
-                                    <div class=" col form-floating pb-2">
-                                        <input asp-for="Input.Nom" class="form-control" autocomplete="nom" aria-required="true" />
-                                        <label asp-for="Input.Nom" class="px-4"></label>
-                                        <span asp-validation-for="Input.Nom" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col form-floating pb-2">
-                                        <input asp-for="Input.Prenom" class="form-control" autocomplete="prenom" aria-required="true" />
-                                        <label asp-for="Input.Prenom" class="px-4"></label>
-                                        <span asp-validation-for="Input.Prenom" class="text-danger"></span>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class=" col form-floating pb-2">
                                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
@@ -45,33 +31,6 @@
                                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col form-floating pb-2">
-                                        <input asp-for="Input.DateDeNaissance" type="date" class="form-control dateInput" autocomplete="age" aria-required="true" min="" />
-                                        <label asp-for="Input.DateDeNaissance" class="px-4"></label>
-                                        <span asp-validation-for="Input.DateDeNaissance" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label for=" ">Adresse</label>
-                                    <div class="col-2 form-floating pb-2">
-                                        <input asp-for="Input.AdresseNum" type="number" class="form-control" autocomplete="address" aria-required="true" min="1" max="1000" />
-                                        <label asp-for="Input.AdresseNum" class="px-4"></label>
-                                        <span asp-validation-for="Input.AdresseNum" class="text-danger"></span>
-                                    </div>
-                                    <div class="col form-floating pb-2">
-                                        <input asp-for="Input.AdresseNom" type="text" class="form-control" autocomplete="address" aria-required="true" />
-                                        <label asp-for="Input.AdresseNom" class="px-4"></label>
-                                        <span asp-validation-for="Input.AdresseNom" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-3 form-floating pb-2">
-                                        <input asp-for="Input.CodePostal" type="number" class="form-control" autocomplete="address" aria-required="true" min="1000" max="98890" step="10" />
-                                        <label asp-for="Input.CodePostal" class="px-4"></label>
-                                        <span asp-validation-for="Input.CodePostal" class="text-danger"></span>
-                                    </div>
-                                </div>
-
                                 <div class="row">
                                     <div class="col form-floating pb-2">
                                         <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />

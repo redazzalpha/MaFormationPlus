@@ -12,6 +12,6 @@ namespace MaFormaPlusCoreMVC.Models
         public int ParcoursId{ get; set; }
         public Parcours Parcours { get; set; } = new();
         public Conseiller? Conseiller { get; set; }
-        public ICollection<Stagiaire>? Stagiaires { get; set; }
+        public ICollection<SessionStagiaire>? sessionStagiaires{ get; set; } = new List<SessionStagiaire>();
     }
 }

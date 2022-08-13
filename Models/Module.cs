@@ -15,7 +15,6 @@ namespace MaFormaPlusCoreMVC.Models
         public string Logo { get; set; } = string.Empty;
 
         public Unite? Unite{ get; set; }
-        public ICollection<Parcours>? Parcours { get; set; }
         public ICollection<ModuleParcours> ModuleParcours { get; set; } = new List<ModuleParcours>();
     }
 }

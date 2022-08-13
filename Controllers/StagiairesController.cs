@@ -19,23 +19,23 @@ namespace MaFormaPlusCoreMVC.Controllers
             _context = context;
         }
 
-        // GET: Stagiaires
+        // GET: Utilisateurs
         public async Task<IActionResult> Index()
         {
-              return _context.Stagiaires != null ? 
-                          View(await _context.Stagiaires.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Stagiaires'  is null.");
+              return _context.Utilisateurs != null ? 
+                          View(await _context.Utilisateurs.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Utilisateurs'  is null.");
         }
 
-        // GET: Stagiaires/Details/5
+        // GET: Utilisateurs/Details/5
         public async Task<IActionResult> Details(string? id)
         {
-            if (id == null || _context.Stagiaires == null)
+            if (id == null || _context.Utilisateurs == null)
             {
                 return NotFound();
             }
 
-            var stagiaire = await _context.Stagiaires
+            var stagiaire = await _context.Utilisateurs
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (stagiaire == null)
             {
@@ -45,18 +45,18 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(stagiaire);
         }
 
-        // GET: Stagiaires/Create
+        // GET: Utilisateurs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stagiaires/Create
+        // POST: Utilisateurs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Stagiaire stagiaire)
+        public async Task<IActionResult> Create([Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Utilisateur stagiaire)
         {
             if (ModelState.IsValid)
             {
@@ -67,15 +67,15 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(stagiaire);
         }
 
-        // GET: Stagiaires/Edit/5
+        // GET: Utilisateurs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Stagiaires == null)
+            if (id == null || _context.Utilisateurs == null)
             {
                 return NotFound();
             }
 
-            var stagiaire = await _context.Stagiaires.FindAsync(id);
+            var stagiaire = await _context.Utilisateurs.FindAsync(id);
             if (stagiaire == null)
             {
                 return NotFound();
@@ -83,12 +83,12 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(stagiaire);
         }
 
-        // POST: Stagiaires/Edit/5
+        // POST: Utilisateurs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Stagiaire stagiaire)
+        public async Task<IActionResult> Edit(string id, [Bind("Adresse,DateDeNaissance,Cv,Id,Nom,Prenom")] Utilisateur stagiaire)
         {
             if (id != stagiaire.Id)
             {
@@ -118,15 +118,15 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(stagiaire);
         }
 
-        // GET: Stagiaires/Delete/5
+        // GET: Utilisateurs/Delete/5
         public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null || _context.Stagiaires == null)
+            if (id == null || _context.Utilisateurs == null)
             {
                 return NotFound();
             }
 
-            var stagiaire = await _context.Stagiaires
+            var stagiaire = await _context.Utilisateurs
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (stagiaire == null)
             {
@@ -136,19 +136,19 @@ namespace MaFormaPlusCoreMVC.Controllers
             return View(stagiaire);
         }
 
-        // POST: Stagiaires/Delete/5
+        // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Stagiaires == null)
+            if (_context.Utilisateurs == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Stagiaires'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Utilisateurs'  is null.");
             }
-            var stagiaire = await _context.Stagiaires.FindAsync(id);
+            var stagiaire = await _context.Utilisateurs.FindAsync(id);
             if (stagiaire != null)
             {
-                _context.Stagiaires.Remove(stagiaire);
+                _context.Utilisateurs.Remove(stagiaire);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace MaFormaPlusCoreMVC.Controllers
 
         private bool StagiaireExists(string id)
         {
-          return (_context.Stagiaires?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Utilisateurs?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MaFormaPlusCoreMVC.Models
-@inject SignInManager<Stagiaire> SignInManager
-@inject UserManager<Stagiaire> UserManager
+@inject SignInManager<Utilisateur> SignInManager
+@inject UserManager<Utilisateur> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

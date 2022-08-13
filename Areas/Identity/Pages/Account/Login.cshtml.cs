@@ -13,10 +13,10 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<Stagiaire> _signInManager;
+        private readonly SignInManager<Utilisateur> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Stagiaire> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<Utilisateur> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

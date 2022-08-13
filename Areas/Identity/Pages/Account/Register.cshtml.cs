@@ -19,18 +19,18 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Stagiaire> _signInManager;
-        private readonly UserManager<Stagiaire> _userManager;
-        private readonly IUserStore<Stagiaire> _userStore;
-        private readonly IUserEmailStore<Stagiaire> _emailStore;
+        private readonly SignInManager<Utilisateur> _signInManager;
+        private readonly UserManager<Utilisateur> _userManager;
+        private readonly IUserStore<Utilisateur> _userStore;
+        private readonly IUserEmailStore<Utilisateur> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
 
         public RegisterModel(
-            UserManager<Stagiaire> userManager,
-            IUserStore<Stagiaire> userStore,
-            SignInManager<Stagiaire> signInManager,
+            UserManager<Utilisateur> userManager,
+            IUserStore<Utilisateur> userStore,
+            SignInManager<Utilisateur> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender, ApplicationDbContext context)
         {
@@ -69,31 +69,6 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [Display(Name = "Nom")]
-            public string Nom { get; set; }
-
-            [Required]
-            [StringLength(15, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [Display(Name = "Prenom")]
-            public string Prenom { get; set; }
-
-            [Required]
-            [DataType(DataType.Date)]
-            [Display(Name = "Date de naissance")]
-            public string DateDeNaissance { get; set; }
-
-            [Required]
-            [Display(Name = "Numéro ")]
-            public int AdresseNum { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at max {1} characters long.")]
-            [Display(Name = "Adresse")]
-            public string AdresseNom { get; set; }
-            [Required]
-            [Display(Name = "Code postal")]
-            public int CodePostal { get; set; }
-            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -109,7 +84,6 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
-
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -127,10 +101,6 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.Nom = Input.Nom;
-                user.Prenom = Input.Prenom;
-                user.DateDeNaissance = Input.DateDeNaissance;
-                user.Adresse = $"{Input.AdresseNum} {Input.AdresseNom} {Input.CodePostal}";
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 IdentityRole role = await (from r in _context.Roles where r.Name == "Stagiaire" select r).FirstAsync();
@@ -173,7 +143,7 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private Stagiaire CreateUser()
+        private Utilisateur CreateUser()
         {
             try
             {
@@ -187,13 +157,13 @@ namespace MaFormaPlusCoreMVC.Areas.Identity.Pages.Account
             }
         }
 
-        private IUserEmailStore<Stagiaire> GetEmailStore()
+        private IUserEmailStore<Utilisateur> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<Stagiaire>)_userStore;
+            return (IUserEmailStore<Utilisateur>)_userStore;
         }
 
     }
