@@ -158,7 +158,7 @@ namespace MaFormaPlusCoreMVC.Migrations
 
                     b.HasIndex("StagiaireId");
 
-                    b.ToTable("SessionUtilisateurs");
+                    b.ToTable("SessionStagiaire");
                 });
 
             modelBuilder.Entity("MaFormaPlusCoreMVC.Models.Unite", b =>

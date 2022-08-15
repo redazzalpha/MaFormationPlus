@@ -12,7 +12,6 @@ namespace MaFormaPlusCoreMVC.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Utilisateur> _userManager;
 
-
         // constructor
         public SessionsController(ApplicationDbContext context, UserManager<Utilisateur> userManager)
         {
@@ -23,6 +22,14 @@ namespace MaFormaPlusCoreMVC.Controllers
         // actions
         public async Task<IActionResult> Index()
         {
+            string? userId = _userManager.GetUserId(HttpContext.User);
+            List<int?> sessionIds = new();
+            if (userId != null)
+            {
+                sessionIds = await (from s in _context.SessionStagiaire where s.StagiaireId == userId select s.SessionId).ToListAsync();
+            }
+            ViewBag.sessionIds = sessionIds;
+
             return _context.Sessions != null ?
                         View(await _context.Sessions.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Sessions'  is null.");
@@ -164,11 +171,12 @@ namespace MaFormaPlusCoreMVC.Controllers
             string? stagiaireId;
             if (ModelState.IsValid && IsConnected(out stagiaireId))
             {
-                _context.SessionUtilisateurs?.Add(new SessionStagiaire() { SessionId = id, StagiaireId = stagiaireId });
+                _context.SessionStagiaire?.Add(new SessionStagiaire() { SessionId = id, StagiaireId = stagiaireId });
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Index", "Home");
         }
+
 
         // methods
         private bool SessionExists(int id)

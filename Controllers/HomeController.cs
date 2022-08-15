@@ -1,5 +1,6 @@
 ﻿using MaFormaPlusCoreMVC.Data;
 using MaFormaPlusCoreMVC.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -11,12 +12,14 @@ namespace MaFormaPlusCoreMVC.Controllers
         // fields
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Utilisateur> _userManager;
 
         // constructors
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<Utilisateur> userManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
         }
 
         // actions
@@ -30,6 +33,13 @@ namespace MaFormaPlusCoreMVC.Controllers
                                            select new SessionParcours() { Session = s, Parcours = p }).ToListAsync();
             }
 
+            string? userId = _userManager.GetUserId(HttpContext.User);
+            List<int?> sessionIds = new();
+            if(userId != null)
+            {
+                sessionIds = await (from s in _context.SessionStagiaire where s.StagiaireId == userId select s.SessionId).ToListAsync();
+            }
+            ViewBag.sessionIds = sessionIds;
             return View(sessionParcourses);
         }
 

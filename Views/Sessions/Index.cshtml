@@ -39,6 +39,10 @@
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Modifier</a>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Supprimer</a>
+                    @if (ViewBag.sessionIds.Contains(item.Id))
+                    {
+                    <div class="tag-style text-center" style="display: inline; text-decoration: unset; position: relative; top: 2px;">Déjà inscrit</div>
+                    }
                 </div>
             </div>
         }

@@ -18,6 +18,6 @@ namespace MaFormaPlusCoreMVC.Data
         public DbSet<Module>? Modules { get; set; }
         public DbSet<Unite>? Unites { get; set; }
         public DbSet<ModuleParcours>? ModuleParcours { get; set; }
-        public DbSet<SessionStagiaire>? SessionUtilisateurs { get; set; }
+        public DbSet<SessionStagiaire>? SessionStagiaire { get; set; }
     }
 }

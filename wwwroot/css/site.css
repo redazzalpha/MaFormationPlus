@@ -43,9 +43,7 @@ body {
     border-radius: 0.25rem;
     width: 100%;
     border: solid grey 1px;
-    background-color: #0d6efd;
     background-color: transparent;
-    color: white;
     padding: 6px 12px;
     color: black;
     text-decoration: unset;
@@ -163,3 +161,15 @@ body {
     }
 
 
+.tag-style {
+    border-radius: 0.25rem;
+    width: 100%;
+    border: solid #0d6efd 1px;
+    background-color: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: unset;
+    margin: 5px;
+    text-align: center;
+    transition: all linear 0.3s;
+}
